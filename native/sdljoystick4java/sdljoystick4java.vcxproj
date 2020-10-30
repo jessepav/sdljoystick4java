@@ -125,6 +125,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>d:\Jesse\Code\Source\SDL2-2.0.12\include;c:\Program Files (x86)\Java\jdk1.7.0_261\include;c:\Program Files (x86)\Java\jdk1.7.0_261\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>26812</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,6 +164,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>d:\Jesse\Code\Source\SDL2-2.0.12\include;c:\Program Files\Java\jdk1.7.0_261\include;c:\Program Files\Java\jdk1.7.0_261\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>26812</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -175,10 +177,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="com_illcode_sdljoystick4java_Native.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="com_illcode_sdljoystick4java_Native.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
