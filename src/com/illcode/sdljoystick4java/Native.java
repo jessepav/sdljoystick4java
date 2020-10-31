@@ -70,7 +70,7 @@ public final class Native
     public static native long joystickFromInstanceId(int instanceId);
 
     /**
-     * Returns the name of the selected joystick.
+     * Returns the name of the given joystick.
      * @param joystickPtr joystick pointer value
      * @return joystick name or <tt>null</tt> if not found
      */
@@ -110,6 +110,80 @@ public final class Native
      * @param button the button index to get the state from; indices start at index 0
      */
     public static native boolean joystickGetButton(long joystickPtr, int button);
+
+    /**
+     * Use this function to load a set of Game Controller mappings from a file, filtered by the current platform
+     * @param filename the name of the database you want to load
+     * @return Returns the number of mappings added or -1 on error
+     * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB</a> on GitHub
+     */
+    public static native int gameControllerAddMappingsFromFile(String filename);
+
+    /**
+     * Use this function to check if the given joystick is supported by the game controller interface.
+     * @param deviceIdx index of the joystick ({@code 0 <= deviceIdx < numJoysticks()} )
+     * @return Returns <tt>true</tt> if the given joystick is supported by the game controller interface,
+     *      <tt>false</tt> if it isn't or it's an invalid index
+     */
+    public static native boolean isGameController(int deviceIdx);
+
+    /**
+     * Open a game controller and return a pointer to a game controller ID structure
+     * @param deviceIdx index of the joystick ({@code 0 <= deviceIdx < numJoysticks()} )
+     * @return pointer value, or 0 on error
+     */
+    public static native long gameControllerOpen(int deviceIdx);
+
+    /**
+     * Returns a pointer to a game controller ID structure on success or 0 on failure.
+     * @param instanceId instance ID as returned by {@code getInstanceId()}
+     */
+    public static native long gameControllerFromInstanceId(int instanceId);
+
+    /**
+     * Close a game controller previously opened with gameControllerOpen()
+     * @param gameControllerPtr game controller pointer value
+     */
+    public static native void gameControllerClose(long gameControllerPtr);
+
+    /**
+     * Return the joystick ID pointer for a game controller
+     * @param gameControllerPtr game controller pointer value
+     * @return joystick pointer value
+     */
+    public static native long gameControllerGetJoystick(long gameControllerPtr);
+
+    /**
+     * Returns the name of the given game controller
+     * @param gameControllerPtr game controller pointer value
+     * @return game controller name or <tt>null</tt> if not found
+     */
+    public static native String gameControllerName(long gameControllerPtr);
+
+    /**
+     * Returns the name of the game controller at the given index
+     * @param deviceIdx index of the game controller ({@code 0 <= deviceIdx < numJoysticks()} )
+     * @return game controller name or <tt>null</tt> if not found
+     */
+    public static native String gameControllerNameForIndex(int deviceIdx);
+
+    /**
+     * Get the current state of an axis control on a game controller.
+     * @param gameControllerPtr game controller pointer value
+     * @param axis one of the AXIS constants in {@link SdlConstants}
+     * @return Returns axis state (including 0) on success or 0 (also) on failure.
+     *         The state is a value ranging from -32768 to 32767.
+     *         Triggers, however, range from 0 to 32767 (they never return a negative value)
+     */
+    public static native short gameControllerGetAxis(long gameControllerPtr, int axis);
+
+    /**
+     * get the current state of a button on a game controller
+     * @param gameControllerPtr game controller pointer value
+     * @param button one of the BUTTON constants in {@link SdlConstants}
+     * @return Returns <tt>true</tt> for pressed state or <tt>false</tt> for not pressed state or error
+     */
+    public static native boolean gameControllerGetButton(long gameControllerPtr, int button);
 
     static {
         System.loadLibrary("SDL2");
