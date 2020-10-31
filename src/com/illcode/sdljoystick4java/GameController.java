@@ -90,9 +90,13 @@ public class GameController
         Native.initJoysticks();
         Native.initGameControllers();
         if (Joystick.numJoysticks() > 0) {
+            int numMappings = GameController.addMappingsFromFile("resources/gamecontrollerdb.txt");
+            if (numMappings > 0)
+                System.out.printf("Loaded %d controller mappings\n\n", numMappings);
             String cmd = args[0];
             int n = Integer.parseInt(args[1]);
             final GameController gc = new GameController(0);
+            System.out.println("GameController - " + gc.getName());
             Thread.sleep(200);
             switch (cmd) {
             case "buttons":
@@ -108,6 +112,16 @@ public class GameController
                 }
                 break;
             case "axes":
+                for (String sn : SdlConstants.SHORT_AXIS_NAMES)
+                    System.out.printf("%6s ", sn);
+                System.out.println();
+                for (int i = 0; i < n; i++) {
+                    GameController.update();
+                    for (int axis = 0; axis < SdlConstants.SDL_CONTROLLER_AXIS_MAX; axis++)
+                        System.out.printf("%+6d ", gc.getAxis(axis));
+                    System.out.println();
+                    Thread.sleep(500);
+                }
                 break;
             }
             gc.close();
