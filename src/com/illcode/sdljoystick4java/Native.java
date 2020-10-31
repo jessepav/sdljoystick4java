@@ -7,5 +7,12 @@ import java.nio.ByteBuffer;
  */
 public final class Native
 {
+    public static native void init();
+
+    public static native void cleanup();
+
+    public static native void update();
+
     public static native long getDirectByteBufferAddress(ByteBuffer b);
+
 }

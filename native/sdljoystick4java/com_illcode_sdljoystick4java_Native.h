@@ -9,6 +9,30 @@ extern "C" {
 #endif
 /*
  * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    init
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_init
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    cleanup
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_cleanup
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    update
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_update
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
  * Method:    getDirectByteBufferAddress
  * Signature: (Ljava/nio/ByteBuffer;)J
  */
