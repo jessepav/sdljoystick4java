@@ -65,13 +65,46 @@ public final class Native
      */
     public static native long joystickFromInstanceId(int instanceId);
 
+    /**
+     * Returns the name of the selected joystick.
+     * @param joystickPtr joystick pointer value
+     * @return joystick name or <tt>null</tt> if not found
+     */
     public static native String joystickName(long joystickPtr);
+
+    /**
+     * Returns the name of the joystick at the given index
+     * @param deviceIdx index of the joystick ({@code 0 <= deviceIdx < numJoysticks()} )
+     * @return joystick name or <tt>null</tt> if not found
+     */
     public static native String joystickNameForIndex(int deviceIdx);
 
+    /**
+     * Returns the number of axis controls/number of axes on success or a negative error code on failure
+     * @param joystickPtr joystick pointer value
+     */
     public static native int joystickNumAxes(long joystickPtr);
+
+    /**
+     * Returns the number of buttons on success or a negative error code on failure
+     * @param joystickPtr joystick pointer value
+     */
     public static native int joystickNumButtons(long joystickPtr);
 
+    /**
+     * Returns a 16-bit signed integer representing the current position of the axis
+     * @param joystickPtr joystick pointer value
+     * @param axis the axis to query; the axis indices start at index 0. On most modern joysticks the
+     *      X axis is usually represented by axis 0 and the Y axis by axis 1
+     * @return a value ranging from -32768 to 32767 or 0 on failure
+     */
     public static native short joystickGetAxis(long joystickPtr, int axis);
+
+    /**
+     * Returns true if the specified button is pressed, false otherwise
+     * @param joystickPtr joystick pointer value
+     * @param button the button index to get the state from; indices start at index 0
+     */
     public static native boolean joystickGetButton(long joystickPtr, int button);
 
     static {
