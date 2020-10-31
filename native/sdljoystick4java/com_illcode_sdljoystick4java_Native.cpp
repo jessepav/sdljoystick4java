@@ -53,25 +53,31 @@ JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_joystickFromIns
 }
 
 JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_joystickName(JNIEnv* env, jclass cls, jlong joystickPtr) {
-
+	const char* name = SDL_JoystickName((SDL_Joystick*)(uintptr_t)joystickPtr);
+	if (name == NULL)
+		return NULL;
+	return env->NewStringUTF(name);
 }
 
 JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_joystickNameForIndex(JNIEnv* env, jclass cls, jint idx) {
-
+	const char* name = SDL_JoystickNameForIndex(idx);
+	if (name == NULL)
+		return NULL;
+	return env->NewStringUTF(name);
 }
 
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_Native_joystickNumAxes(JNIEnv* env, jclass cls, jlong joystickPtr) {
-
+	return SDL_JoystickNumAxes((SDL_Joystick*)(uintptr_t)joystickPtr);
 }
 
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_Native_joystickNumButtons(JNIEnv* env, jclass cls, jlong joystickPtr) {
-
+	return SDL_JoystickNumButtons((SDL_Joystick*)(uintptr_t)joystickPtr);
 }
 
 JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_Native_joystickGetAxis(JNIEnv* env, jclass cls, jlong joystickPtr, jint axis) {
-
+	return SDL_JoystickGetAxis((SDL_Joystick*)(uintptr_t)joystickPtr, axis);
 }
 
 JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_Native_joystickGetButton(JNIEnv* env, jclass cls, jlong joystickPtr, jint button) {
-
+	return SDL_JoystickGetButton((SDL_Joystick*)(uintptr_t)joystickPtr, button) == 1 ? JNI_TRUE : JNI_FALSE;
 }

@@ -74,5 +74,12 @@ public final class Native
     public static native short joystickGetAxis(long joystickPtr, int axis);
     public static native boolean joystickGetButton(long joystickPtr, int button);
 
+    static {
+        System.loadLibrary("SDL2");
+        System.loadLibrary("sdljoystick4java");
+    }
 
+    public static void main(String[] args) {
+        System.out.println("Hello!");
+    }
 }
