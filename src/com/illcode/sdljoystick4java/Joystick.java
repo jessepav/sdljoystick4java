@@ -27,6 +27,9 @@ public class Joystick
         numButtons = Native.joystickNumButtons(joystickPtr);
     }
 
+    /**
+     * Close the joystick
+     */
     public void close() {
         if (joystickPtr != 0)
             Native.joystickClose(joystickPtr);
