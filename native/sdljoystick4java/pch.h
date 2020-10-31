@@ -11,4 +11,7 @@
 #include "framework.h"
 #include <stdint.h>
 
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
+
 #endif //PCH_H

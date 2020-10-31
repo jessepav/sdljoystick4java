@@ -9,11 +9,19 @@ extern "C" {
 #endif
 /*
  * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    getDirectByteBufferAddress
+ * Signature: (Ljava/nio/ByteBuffer;)J
+ */
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_getDirectByteBufferAddress
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
  * Method:    init
- * Signature: ()V
+ * Signature: (Z)V
  */
 JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_init
-  (JNIEnv *, jclass);
+  (JNIEnv *, jclass, jboolean);
 
 /*
  * Class:     com_illcode_sdljoystick4java_Native
@@ -33,11 +41,99 @@ JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_update
 
 /*
  * Class:     com_illcode_sdljoystick4java_Native
- * Method:    getDirectByteBufferAddress
- * Signature: (Ljava/nio/ByteBuffer;)J
+ * Method:    getError
+ * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_getDirectByteBufferAddress
-  (JNIEnv *, jclass, jobject);
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_getError
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    numJoysticks
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_Native_numJoysticks
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickOpen
+ * Signature: (I)J
+ */
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_joystickOpen
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickClose
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_joystickClose
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    getInstanceId
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_Native_getInstanceId
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickFromInstanceId
+ * Signature: (I)J
+ */
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_joystickFromInstanceId
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickName
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_joystickName
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickNameForIndex
+ * Signature: (I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_joystickNameForIndex
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickNumAxes
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_Native_joystickNumAxes
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickNumButtons
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_Native_joystickNumButtons
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickGetAxis
+ * Signature: (JI)S
+ */
+JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_Native_joystickGetAxis
+  (JNIEnv *, jclass, jlong, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    joystickGetButton
+ * Signature: (JI)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_Native_joystickGetButton
+  (JNIEnv *, jclass, jlong, jint);
 
 #ifdef __cplusplus
 }
