@@ -17,11 +17,19 @@ JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_getDirectByteBu
 
 /*
  * Class:     com_illcode_sdljoystick4java_Native
- * Method:    init
- * Signature: (Z)V
+ * Method:    initJoysticks
+ * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_init
-  (JNIEnv *, jclass, jboolean);
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_initJoysticks
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    initGameControllers
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_initGameControllers
+  (JNIEnv *, jclass);
 
 /*
  * Class:     com_illcode_sdljoystick4java_Native

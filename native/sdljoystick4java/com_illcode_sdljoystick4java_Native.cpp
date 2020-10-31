@@ -7,14 +7,14 @@ JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_getDirectByteBu
 	return (jlong)(uintptr_t)env->GetDirectBufferAddress(buffer);
 }
 
-JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_init(JNIEnv* env, jclass cls, jboolean useControllers) {
-	Uint32 flags = SDL_INIT_JOYSTICK;
-	if (useControllers)
-		flags |= SDL_INIT_GAMECONTROLLER;
-	SDL_InitSubSystem(flags);
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_initJoysticks(JNIEnv* env, jclass cls) {
+	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_JoystickEventState(SDL_IGNORE);
-	if (useControllers)
-		SDL_GameControllerEventState(SDL_IGNORE);
+}
+
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_initGameControllers(JNIEnv* env, jclass cls) {
+	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
+	SDL_GameControllerEventState(SDL_IGNORE);
 }
 
 JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_cleanup(JNIEnv* env, jclass cls) {

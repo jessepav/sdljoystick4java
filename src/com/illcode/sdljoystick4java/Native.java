@@ -16,9 +16,13 @@ public final class Native
 
     /**
      * Initialize the SDL Joystick subsystem
-     * @param useControllers if true, initialize the Gamecontroller subsystem as well
      */
-    public static native void init(boolean useControllers);
+    public static native void initJoysticks();
+
+    /**
+     * Initialize the SDL GameController subsystem
+     */
+    public static native void initGameControllers();
 
     /**
      * Cleanup any resources and call SDL_Quit()
@@ -110,9 +114,5 @@ public final class Native
     static {
         System.loadLibrary("SDL2");
         System.loadLibrary("sdljoystick4java");
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Hello!");
     }
 }
