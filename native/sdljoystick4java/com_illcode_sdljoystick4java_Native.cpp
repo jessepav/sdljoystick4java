@@ -10,6 +10,7 @@ JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_getDirectByteBu
 JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_initJoysticks(JNIEnv* env, jclass cls) {
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_JoystickEventState(SDL_IGNORE);
+
 }
 
 JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_initGameControllers(JNIEnv* env, jclass cls) {
@@ -80,4 +81,53 @@ JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_Native_joystickGetAxi
 
 JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_Native_joystickGetButton(JNIEnv* env, jclass cls, jlong joystickPtr, jint button) {
 	return SDL_JoystickGetButton((SDL_Joystick*)(uintptr_t)joystickPtr, button) == 1 ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerAddMappingsFromFile(JNIEnv* env, jclass cls, jstring filename) {
+	const char* cstr = env->GetStringUTFChars(filename, NULL);
+	int numMappings = SDL_GameControllerAddMappingsFromFile(cstr);
+	env->ReleaseStringUTFChars(filename, cstr);
+	return (jint) numMappings;
+}
+
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_Native_isGameController(JNIEnv* env, jclass cls, jint deviceIdx) {
+	return SDL_IsGameController(deviceIdx) == SDL_TRUE ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerOpen(JNIEnv* env, jclass cls, jint deviceIdx) {
+	return (jlong)(uintptr_t)SDL_GameControllerOpen(deviceIdx);
+}
+
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerFromInstanceId(JNIEnv* env, jclass cls, jint instanceId) {
+	return (jlong)(uintptr_t)SDL_GameControllerFromInstanceID(instanceId);
+}
+
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerClose(JNIEnv* env, jclass cls, jlong gameControllerPtr) {
+	SDL_GameControllerClose((SDL_GameController*)(uintptr_t)gameControllerPtr);
+}
+
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerGetJoystick(JNIEnv* env, jclass cls, jlong gameControllerPtr) {
+	return (jlong)(uintptr_t)SDL_GameControllerGetJoystick((SDL_GameController*)(uintptr_t)gameControllerPtr);
+}
+
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerName(JNIEnv* env, jclass cls, jlong gameControllerPtr) {
+	const char* name = SDL_GameControllerName((SDL_GameController*)(uintptr_t)gameControllerPtr);
+	if (name == NULL)
+		return NULL;
+	return env->NewStringUTF(name);
+}
+
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerNameForIndex(JNIEnv* env, jclass cls, jint deviceIdx) {
+	const char* name = SDL_GameControllerNameForIndex(deviceIdx);
+	if (name == NULL)
+		return NULL;
+	return env->NewStringUTF(name);
+}
+
+JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerGetAxis(JNIEnv* env, jclass cls, jlong gameControllerPtr, jint axis) {
+	return SDL_GameControllerGetAxis((SDL_GameController*)(uintptr_t)gameControllerPtr, (SDL_GameControllerAxis) axis);
+}
+
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerGetButton(JNIEnv* env, jclass cls, jlong gameControllerPtr, jint button) {
+	return SDL_GameControllerGetButton((SDL_GameController*)(uintptr_t)gameControllerPtr, (SDL_GameControllerButton)button) == 1 ? JNI_TRUE : JNI_FALSE;
 }

@@ -143,6 +143,86 @@ JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_Native_joystickGetAxi
 JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_Native_joystickGetButton
   (JNIEnv *, jclass, jlong, jint);
 
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerAddMappingsFromFile
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerAddMappingsFromFile
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    isGameController
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_Native_isGameController
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerOpen
+ * Signature: (I)J
+ */
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerOpen
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerFromInstanceId
+ * Signature: (I)J
+ */
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerFromInstanceId
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerClose
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerClose
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerGetJoystick
+ * Signature: (J)J
+ */
+JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerGetJoystick
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerName
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerName
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerNameForIndex
+ * Signature: (I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerNameForIndex
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerGetAxis
+ * Signature: (JI)S
+ */
+JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerGetAxis
+  (JNIEnv *, jclass, jlong, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_Native
+ * Method:    gameControllerGetButton
+ * Signature: (JI)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_Native_gameControllerGetButton
+  (JNIEnv *, jclass, jlong, jint);
+
 #ifdef __cplusplus
 }
 #endif
