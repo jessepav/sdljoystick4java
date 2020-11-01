@@ -13,7 +13,7 @@ public class Joystick
 
 
     public Joystick(int deviceIdx) throws SdlException {
-        joystickPtr = Native.joystickOpen(deviceIdx);
+        joystickPtr = SdlNative.joystickOpen(deviceIdx);
         if (joystickPtr == 0)
             throw new SdlException();
         queryJoystick();
@@ -25,10 +25,10 @@ public class Joystick
     }
 
     private void queryJoystick() {
-        instanceId = Native.getInstanceId(joystickPtr);
-        name = Native.joystickName(joystickPtr);
-        numAxes = Native.joystickNumAxes(joystickPtr);
-        numButtons = Native.joystickNumButtons(joystickPtr);
+        instanceId = SdlNative.getInstanceId(joystickPtr);
+        name = SdlNative.joystickName(joystickPtr);
+        numAxes = SdlNative.joystickNumAxes(joystickPtr);
+        numButtons = SdlNative.joystickNumButtons(joystickPtr);
         update(true);
     }
 
@@ -37,7 +37,7 @@ public class Joystick
      */
     public void close() {
         if (joystickPtr != 0)
-            Native.joystickClose(joystickPtr);
+            SdlNative.joystickClose(joystickPtr);
         joystickPtr = 0;
     }
 
@@ -77,7 +77,7 @@ public class Joystick
      * @return a value ranging from -32768 to 32767 or 0 on failure
      */
     public short getAxis(int axis) {
-        return Native.joystickGetAxis(joystickPtr, axis);
+        return SdlNative.joystickGetAxis(joystickPtr, axis);
     }
 
     /**
@@ -88,7 +88,7 @@ public class Joystick
         if (transitionDetectionEnabled)
             return currentButtonState[button];   // no need to call to native
         else
-            return Native.joystickGetButton(joystickPtr, button);
+            return SdlNative.joystickGetButton(joystickPtr, button);
     }
 
     /**
@@ -138,17 +138,17 @@ public class Joystick
      */
     public void update(boolean nativeUpdate) {
         if (nativeUpdate)
-            Native.update();
+            SdlNative.update();
         if (transitionDetectionEnabled) {
             System.arraycopy(currentButtonState, 0, previousButtonState, 0, numButtons);
             for (int b = 0; b < numButtons; b++)
-                currentButtonState[b] = Native.joystickGetButton(joystickPtr, b);
+                currentButtonState[b] = SdlNative.joystickGetButton(joystickPtr, b);
         }
     }
 
     /** Return number of joysticks attached to the system. */
     public static int numJoysticks() {
-        return Native.numJoysticks();
+        return SdlNative.numJoysticks();
     }
 
     public String toString() {
@@ -163,7 +163,7 @@ public class Joystick
     }
 
     public static void main(String[] args) throws SdlException, InterruptedException {
-        Native.initJoysticks();
+        SdlNative.initJoysticks();
         if (Joystick.numJoysticks() > 0) {
             final Joystick joystick = new Joystick(0);
             joystick.setTransitionDetectionEnabled(true);
@@ -192,7 +192,7 @@ public class Joystick
             }
             joystick.close();
         }
-        Native.cleanup();
+        SdlNative.cleanup();
     }
 
 }

@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 /**
  * Direct mappings for JNI methods.
  */
-public final class Native
+public final class SdlNative
 {
     /**
      * Get the native address of a direct byte buffer.

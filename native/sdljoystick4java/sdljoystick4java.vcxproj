@@ -177,12 +177,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="com_illcode_sdljoystick4java_Native.h" />
+    <ClInclude Include="com_illcode_sdljoystick4java_SdlNative.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="com_illcode_sdljoystick4java_Native.cpp" />
+    <ClCompile Include="com_illcode_sdljoystick4java_SdlNative.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

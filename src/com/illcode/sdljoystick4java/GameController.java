@@ -11,12 +11,12 @@ public class GameController
     private boolean[] currentButtonState, previousButtonState;
 
     public GameController(int deviceIdx) throws SdlException {
-        if (!Native.isGameController(deviceIdx))
+        if (!SdlNative.isGameController(deviceIdx))
             throw new SdlException("Device is not a game controller");
-        gameControllerPtr = Native.gameControllerOpen(deviceIdx);
+        gameControllerPtr = SdlNative.gameControllerOpen(deviceIdx);
         if (gameControllerPtr == 0)
             throw new SdlException();
-        name = Native.gameControllerName(gameControllerPtr);
+        name = SdlNative.gameControllerName(gameControllerPtr);
     }
 
     /**
@@ -26,7 +26,7 @@ public class GameController
      * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB</a> on GitHub
      */
     public static int addMappingsFromFile(Path dbPath) {
-        return Native.gameControllerAddMappingsFromFile(dbPath.toString());
+        return SdlNative.gameControllerAddMappingsFromFile(dbPath.toString());
     }
 
     /**
@@ -36,13 +36,13 @@ public class GameController
      * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB</a> on GitHub
      */
     public static int addMappingsFromFile(String dbName) {
-        return Native.gameControllerAddMappingsFromFile(dbName);
+        return SdlNative.gameControllerAddMappingsFromFile(dbName);
     }
 
     /** Close the game controller */
     public void close() {
         if (gameControllerPtr != 0)
-            Native.gameControllerClose(gameControllerPtr);
+            SdlNative.gameControllerClose(gameControllerPtr);
         gameControllerPtr = 0;
     }
 
@@ -50,7 +50,7 @@ public class GameController
      * Return the underlying joystick of this game controller
      */
     public Joystick getJoystick() {
-        return new Joystick(Native.gameControllerGetJoystick(gameControllerPtr));
+        return new Joystick(SdlNative.gameControllerGetJoystick(gameControllerPtr));
     }
 
     /**
@@ -68,7 +68,7 @@ public class GameController
      *         Triggers, however, range from 0 to 32767 (they never return a negative value)
      */
     public short getAxis(int axis) {
-        return Native.gameControllerGetAxis(gameControllerPtr, axis);
+        return SdlNative.gameControllerGetAxis(gameControllerPtr, axis);
     }
 
     /**
@@ -80,7 +80,7 @@ public class GameController
         if (transitionDetectionEnabled)
             return currentButtonState[button];   // no need to call to native
         else
-            return Native.gameControllerGetButton(gameControllerPtr, button);
+            return SdlNative.gameControllerGetButton(gameControllerPtr, button);
     }
 
     /**
@@ -130,11 +130,11 @@ public class GameController
      */
     public void update(boolean nativeUpdate) {
         if (nativeUpdate)
-            Native.update();
+            SdlNative.update();
         if (transitionDetectionEnabled) {
             System.arraycopy(currentButtonState, 0, previousButtonState, 0, SdlConstants.SDL_CONTROLLER_BUTTON_MAX);
             for (int b = 0; b < SdlConstants.SDL_CONTROLLER_BUTTON_MAX; b++)
-                currentButtonState[b] = Native.gameControllerGetButton(gameControllerPtr, b);
+                currentButtonState[b] = SdlNative.gameControllerGetButton(gameControllerPtr, b);
         }
     }
 
@@ -143,8 +143,8 @@ public class GameController
             System.out.println("Usage: GameController axes|buttons <num iterations>");
             System.exit(0);
         }
-        Native.initJoysticks();
-        Native.initGameControllers();
+        SdlNative.initJoysticks();
+        SdlNative.initGameControllers();
         if (Joystick.numJoysticks() > 0) {
             int numMappings = GameController.addMappingsFromFile("resources/gamecontrollerdb.txt");
             if (numMappings > 0)
@@ -197,6 +197,6 @@ public class GameController
             }
             gc.close();
         }
-        Native.cleanup();
+        SdlNative.cleanup();
     }
 }

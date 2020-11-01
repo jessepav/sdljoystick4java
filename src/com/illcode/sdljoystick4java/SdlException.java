@@ -3,7 +3,7 @@ package com.illcode.sdljoystick4java;
 public class SdlException extends Exception
 {
     public SdlException() {
-        super(Native.getError());
+        super(SdlNative.getError());
     }
 
     public SdlException(String message) {
