@@ -128,16 +128,7 @@ public class GameController
     public void update() {
         if (transitionDetectionEnabled)
             System.arraycopy(currentButtonState, 0, previousButtonState, 0, SdlConstants.SDL_CONTROLLER_BUTTON_MAX);
-        if (Joystick.previousNativeUpdate == 0L) {
-            Native.update();
-            Joystick.previousNativeUpdate = System.nanoTime();
-        } else {
-            long t1 = System.nanoTime();
-            if (t1 - Joystick.previousNativeUpdate >= Joystick.NATIVE_UPDATE_PERIOD_NANO) {
-                Native.update();
-                Joystick.previousNativeUpdate = t1;
-            }
-        }
+        Joystick.nativeUpdate();
         if (transitionDetectionEnabled) {
             for (int b = 0; b < SdlConstants.SDL_CONTROLLER_BUTTON_MAX; b++)
                 currentButtonState[b] = Native.gameControllerGetButton(gameControllerPtr, b);

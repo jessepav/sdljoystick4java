@@ -2,9 +2,9 @@ package com.illcode.sdljoystick4java;
 
 public class Joystick
 {
-    static final int NATIVE_UPDATE_PERIOD_NANO = 10000;  // don't call Native.update() more than 100 times a second
+    private static final int NATIVE_UPDATE_PERIOD_NANO = 10000;  // don't call Native.update() more than 100 times a second
 
-    static long previousNativeUpdate;  // accessed from GameController too
+    private static long previousNativeUpdate;  // accessed from GameController too
 
     private long joystickPtr;
     private int instanceId;
@@ -140,6 +140,14 @@ public class Joystick
     public void update() {
         if (transitionDetectionEnabled)
             System.arraycopy(currentButtonState, 0, previousButtonState, 0, numButtons);
+        nativeUpdate();
+        if (transitionDetectionEnabled) {
+            for (int b = 0; b < numButtons; b++)
+                currentButtonState[b] = Native.joystickGetButton(joystickPtr, b);
+        }
+    }
+
+    static void nativeUpdate() {
         if (previousNativeUpdate == 0L) {
             Native.update();
             previousNativeUpdate = System.nanoTime();
@@ -149,10 +157,6 @@ public class Joystick
                 Native.update();
                 previousNativeUpdate = t1;
             }
-        }
-        if (transitionDetectionEnabled) {
-            for (int b = 0; b < numButtons; b++)
-                currentButtonState[b] = Native.joystickGetButton(joystickPtr, b);
         }
     }
 
