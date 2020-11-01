@@ -19,6 +19,6 @@ set ARCH=%2
 
 :command
 
-devenv sdljoystick4java.sln %COMMAND% "Release|%ARCH%" /Project sdljoystick4java
+devenv %~dp0sdljoystick4java.sln %COMMAND% "Release|%ARCH%" /Project sdljoystick4java
 
 endlocal
