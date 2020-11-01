@@ -58,6 +58,13 @@ public final class SdlNative
     public static native void joystickClose(long joystickPtr);
 
     /**
+     * Get the status of a specified joystick
+     * @param joystickPtr joystick pointer value
+     * @return true if the joystick has been opened, false if it has not
+     */
+    public static native boolean joystickGetAttached(long joystickPtr);
+
+    /**
      * Returns the instance ID of the specified joystick on success or a negative error code on failure.
      * @param joystickPtr long pointer returned by {@code joystickOpen()}
      */
@@ -145,6 +152,13 @@ public final class SdlNative
      * @param gameControllerPtr game controller pointer value
      */
     public static native void gameControllerClose(long gameControllerPtr);
+
+    /**
+     * Check if a controller has been opened and is currently connected
+     * @param gameControllerPtr game controller pointer value
+     * @return true if the controller has been opened and currently connected, or false otherwise
+     */
+    public static native boolean gameControllerGetAttached(long gameControllerPtr);
 
     /**
      * Return the joystick ID pointer for a game controller

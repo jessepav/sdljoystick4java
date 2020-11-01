@@ -61,6 +61,14 @@ public class GameController
     }
 
     /**
+     * Check if the controller has been opened and is currently connected
+     * @return true if the controller has been opened and currently connected, or false otherwise
+     */
+    public boolean isAttached() {
+        return SdlNative.gameControllerGetAttached(gameControllerPtr);
+    }
+
+    /**
      * Get the current state of an axis control on the game controller.
      * @param axis one of the AXIS constants in {@link SdlConstants}
      * @return Returns axis state (including 0) on success or 0 (also) on failure.
@@ -125,8 +133,10 @@ public class GameController
     }
 
     /**
-     * Update state for joystick.
-     * @param nativeUpdate
+     * Update local state for this game controller and, optionally, global native state for all game controllers.
+     * During each polling cycle, you only need to update native state once, while the local state
+     * needs to be updated for each game controller.
+     * @param nativeUpdate if true, update native state
      */
     public void update(boolean nativeUpdate) {
         if (nativeUpdate)

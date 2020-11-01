@@ -44,6 +44,10 @@ JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickClose
 	SDL_JoystickClose((SDL_Joystick*)(uintptr_t)joystickPtr);
 }
 
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetAttached(JNIEnv* env, jclass cls, jlong joystickPtr) {
+	return SDL_JoystickGetAttached((SDL_Joystick*)(uintptr_t)joystickPtr);
+}
+
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getInstanceId(JNIEnv* env, jclass cls, jlong joystickPtr) {
 	SDL_Joystick* joystick = (SDL_Joystick*)(uintptr_t)joystickPtr;
 	return (jint) SDL_JoystickInstanceID(joystick);
@@ -91,7 +95,7 @@ JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControlle
 }
 
 JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_isGameController(JNIEnv* env, jclass cls, jint deviceIdx) {
-	return SDL_IsGameController(deviceIdx) == SDL_TRUE ? JNI_TRUE : JNI_FALSE;
+	return SDL_IsGameController(deviceIdx);
 }
 
 JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerOpen(JNIEnv* env, jclass cls, jint deviceIdx) {
@@ -104,6 +108,10 @@ JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControll
 
 JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerClose(JNIEnv* env, jclass cls, jlong gameControllerPtr) {
 	SDL_GameControllerClose((SDL_GameController*)(uintptr_t)gameControllerPtr);
+}
+
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerGetAttached(JNIEnv* env, jclass cls, jlong gameControllerPtr) {
+	return SDL_GameControllerGetAttached((SDL_GameController*)(uintptr_t)gameControllerPtr);
 }
 
 JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerGetJoystick(JNIEnv* env, jclass cls, jlong gameControllerPtr) {

@@ -71,6 +71,14 @@ public class Joystick
     }
 
     /**
+     * Get the status of the joystick
+     * @return true if the joystick has been opened, false if it has not
+     */
+    public boolean isAttached() {
+        return SdlNative.joystickGetAttached(joystickPtr);
+    }
+
+    /**
      * Returns a 16-bit signed integer representing the current position of the axis
      * @param axis the axis to query; the axis indices start at index 0. On most modern joysticks the
      *      X axis is usually represented by axis 0 and the Y axis by axis 1
@@ -133,8 +141,10 @@ public class Joystick
     }
 
     /**
-     * Update state for joystick.
-     * @param nativeUpdate
+     * Update local state for this joystick and, optionally, global native state for all joysticks.
+     * During each polling cycle, you only need to update native state once, while the local state
+     * needs to be updated for each joystick.
+     * @param nativeUpdate if true, update native state
      */
     public void update(boolean nativeUpdate) {
         if (nativeUpdate)

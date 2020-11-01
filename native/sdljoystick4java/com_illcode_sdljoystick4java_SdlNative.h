@@ -81,6 +81,14 @@ JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickClose
 
 /*
  * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickGetAttached
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetAttached
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
  * Method:    getInstanceId
  * Signature: (J)I
  */
@@ -181,6 +189,14 @@ JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControll
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerClose
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    gameControllerGetAttached
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerGetAttached
   (JNIEnv *, jclass, jlong);
 
 /*
