@@ -124,12 +124,15 @@ public class GameController
             return false;
     }
 
-    /** Update state for game controller. */
-    public void update() {
-        if (transitionDetectionEnabled)
-            System.arraycopy(currentButtonState, 0, previousButtonState, 0, SdlConstants.SDL_CONTROLLER_BUTTON_MAX);
-        Joystick.nativeUpdate();
+    /**
+     * Update state for joystick.
+     * @param nativeUpdate
+     */
+    public void update(boolean nativeUpdate) {
+        if (nativeUpdate)
+            Native.update();
         if (transitionDetectionEnabled) {
+            System.arraycopy(currentButtonState, 0, previousButtonState, 0, SdlConstants.SDL_CONTROLLER_BUTTON_MAX);
             for (int b = 0; b < SdlConstants.SDL_CONTROLLER_BUTTON_MAX; b++)
                 currentButtonState[b] = Native.gameControllerGetButton(gameControllerPtr, b);
         }
@@ -155,7 +158,7 @@ public class GameController
             switch (cmd) {
             case "buttons":
                 for (int i = 0; i < n; i++) {
-                    gc.update();
+                    gc.update(true);
                     if (i % 10 == 0) {
                         System.out.println("---------------------------------------------------------------------");
                         for (String sn : SdlConstants.SHORT_BUTTON_NAMES)
@@ -178,7 +181,7 @@ public class GameController
                 break;
             case "axes":
                 for (int i = 0; i < n; i++) {
-                    gc.update();
+                    gc.update(true);
                     if (i % 10 == 0) {
                         System.out.println("---------------------------------------------------------------------");
                         for (String sn : SdlConstants.SHORT_AXIS_NAMES)

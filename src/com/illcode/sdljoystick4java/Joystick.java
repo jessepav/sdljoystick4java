@@ -2,10 +2,6 @@ package com.illcode.sdljoystick4java;
 
 public class Joystick
 {
-    private static final int NATIVE_UPDATE_PERIOD_NANO = 10000;  // don't call Native.update() more than 100 times a second
-
-    private static long previousNativeUpdate;  // accessed from GameController too
-
     private long joystickPtr;
     private int instanceId;
     private String name;
@@ -33,7 +29,7 @@ public class Joystick
         name = Native.joystickName(joystickPtr);
         numAxes = Native.joystickNumAxes(joystickPtr);
         numButtons = Native.joystickNumButtons(joystickPtr);
-        update();
+        update(true);
     }
 
     /**
@@ -99,7 +95,7 @@ public class Joystick
      * Enable or disable support for button transition events. These are exposed through
      * the {@link #buttonPressed(int)} and {@link #buttonReleased(int)} methods. The usual
      * button polling method, {@link #getButton(int)}, reports if the button was pressed
-     * at the time of the last call to {@link #update()}. The button transition methods,
+     * at the time of the last call to {@link #update(boolean)}. The button transition methods,
      * in comparison, report if the button was pressed (or released) in the most recent
      * call to <tt>update()</tt>, and <em>not</em> pressed (or released) at the time of
      * the previous <tt>update()</tt>.
@@ -136,27 +132,17 @@ public class Joystick
             return false;
     }
 
-    /** Update state for joystick. */
-    public void update() {
-        if (transitionDetectionEnabled)
-            System.arraycopy(currentButtonState, 0, previousButtonState, 0, numButtons);
-        nativeUpdate();
+    /**
+     * Update state for joystick.
+     * @param nativeUpdate
+     */
+    public void update(boolean nativeUpdate) {
+        if (nativeUpdate)
+            Native.update();
         if (transitionDetectionEnabled) {
+            System.arraycopy(currentButtonState, 0, previousButtonState, 0, numButtons);
             for (int b = 0; b < numButtons; b++)
                 currentButtonState[b] = Native.joystickGetButton(joystickPtr, b);
-        }
-    }
-
-    static void nativeUpdate() {
-        if (previousNativeUpdate == 0L) {
-            Native.update();
-            previousNativeUpdate = System.nanoTime();
-        } else {
-            long t1 = System.nanoTime();
-            if (t1 - previousNativeUpdate >= NATIVE_UPDATE_PERIOD_NANO) {
-                Native.update();
-                previousNativeUpdate = t1;
-            }
         }
     }
 
@@ -187,7 +173,7 @@ public class Joystick
                 int n = Integer.parseInt(args[0]);
                 Thread.sleep(200);
                 for (int i = 0; i < n; i++) {
-                    joystick.update();
+                    joystick.update(true);
                     for (int button = 0; button < joystick.getNumButtons(); button++) {
                         System.out.print(joystick.getButton(button) ? "1" : "0");
                         if (joystick.buttonPressed(button))
