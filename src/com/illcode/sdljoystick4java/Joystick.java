@@ -166,6 +166,14 @@ public class Joystick
         }
     }
 
+    /**
+     * Get the implementation-dependent GUID for the joystick
+     * @return Returns the GUID of the given joystick.
+     */
+    public GUID getGUID() {
+        return new GUID(SdlNative.joystickGetGUID(joystickPtr));
+    }
+
     /** Return number of joysticks attached to the system. */
     public static int numJoysticks() {
         return SdlNative.numJoysticks();
@@ -189,6 +197,18 @@ public class Joystick
         sb.append("      numAxes = ").append(numAxes).append("\n");
         sb.append("   numButtons = ").append(numButtons).append("\n");
         return sb.toString();
+    }
+
+    /**
+     * A joystick GUI, corresponding to the SDL_JoystickGUID type.
+     */
+    public static class GUID
+    {
+        public byte[] data;
+
+        public GUID(byte[] data) {
+            this.data = data;
+        }
     }
 
     public static void main(String[] args) throws SdlException, InterruptedException {

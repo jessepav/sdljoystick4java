@@ -131,6 +131,36 @@ public final class SdlNative
      */
     public static native int joystickCurrentPowerLevel(long joystickPtr);
 
+    /**
+     * Get the implementation-dependent GUID for the joystick at a given device index.
+     * @param deviceIdx index of the joystick ({@code 0 <= deviceIdx < numJoysticks()} )
+     * @return GUID of the given joystick as a byte array (of length 16, as of SDL 2.0.12)
+     *         If called on an invalid index, this function returns a zero GUID
+     */
+    public static native byte[] joystickGetDeviceGUID(int deviceIdx);
+
+    /**
+     * Get the implementation-dependent GUID for the joystick
+     * @param joystickPtr joystick pointer value
+     * @return GUID of the given joystick as a byte array (of length 16, as of SDL 2.0.12)
+     *         If called on an invalid index, this function returns a zero GUID
+     */
+    public static native byte[] joystickGetGUID(long joystickPtr);
+
+    /**
+     * Convert a GUID string into a GUID structure
+     * @param guidStr string containing an ASCII representation of a GUID
+     * @return GUID structure as a byte array
+     */
+    public static native byte[] joystickGetGUIDFromString(String guidStr);
+
+    /**
+     * Get an ASCII string representation for a given GUID
+     * @param guid GUID structure as a byte array
+     * @return ASCII string
+     */
+    public static native String joystickGetGUIDString(byte[] guid);
+
 
     // ==================================================================================
     //   GameController methods

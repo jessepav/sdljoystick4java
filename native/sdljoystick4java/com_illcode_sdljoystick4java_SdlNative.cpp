@@ -32,6 +32,9 @@ JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getError(J
 	return env->NewStringUTF(error);
 }
 
+// ---------------- Joystick functions -------------------------------
+
+
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_numJoysticks(JNIEnv* env, jclass cls) {
 	return SDL_NumJoysticks();
 }
@@ -90,6 +93,48 @@ JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickG
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickCurrentPowerLevel(JNIEnv* env, jclass cls, jlong joystickPtr) {
 	return SDL_JoystickCurrentPowerLevel((SDL_Joystick*)(uintptr_t)joystickPtr);
 }
+
+static jbyteArray byteArrayFromGUID(JNIEnv* env, const SDL_JoystickGUID * guid) {
+	int n = sizeof(SDL_JoystickGUID);
+	jbyteArray barr = env->NewByteArray(n);
+	if (barr == NULL)
+		return NULL;
+	env->SetByteArrayRegion(barr, 0, n, (const jbyte*)guid->data);
+	return barr;
+}
+
+JNIEXPORT jbyteArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetDeviceGUID(JNIEnv* env, jclass cls, jint deviceIdx) {
+	SDL_JoystickGUID guid = SDL_JoystickGetDeviceGUID(deviceIdx);
+	return byteArrayFromGUID(env, &guid);
+}
+
+JNIEXPORT jbyteArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetGUID(JNIEnv* env, jclass cls, jlong joystickPtr) {
+	SDL_JoystickGUID guid = SDL_JoystickGetGUID((SDL_Joystick*)(uintptr_t)joystickPtr);
+	return byteArrayFromGUID(env, &guid);
+}
+
+JNIEXPORT jbyteArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetGUIDFromString(JNIEnv* env, jclass cls, jstring guidStr) {
+	const char* cguidstr = env->GetStringUTFChars(guidStr, NULL);
+	SDL_JoystickGUID guid = SDL_JoystickGetGUIDFromString(cguidstr);
+	env->ReleaseStringUTFChars(guidStr, cguidstr);
+	return byteArrayFromGUID(env, &guid);
+}
+
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetGUIDString(JNIEnv* env, jclass cls, jbyteArray barrGuid) {
+	SDL_JoystickGUID guid;
+	int n = env->GetArrayLength(barrGuid);
+	int size = sizeof(SDL_JoystickGUID);
+	if (n > size)
+		n = size;
+	else if (n < size)
+		memset(guid.data, 0, size);
+	env->GetByteArrayRegion(barrGuid, 0, n, (jbyte*)guid.data);
+	char cstrGuid[33];
+	SDL_JoystickGetGUIDString(guid, cstrGuid, 33);
+	return env->NewStringUTF(cstrGuid);
+}
+
+// ---------------- GameController functions -------------------------------
 
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerAddMappingsFromFile(JNIEnv* env, jclass cls, jstring filename) {
 	const char* cstr = env->GetStringUTFChars(filename, NULL);

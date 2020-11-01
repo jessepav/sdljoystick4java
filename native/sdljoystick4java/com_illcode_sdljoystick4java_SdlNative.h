@@ -161,6 +161,38 @@ JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickCurre
 
 /*
  * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickGetDeviceGUID
+ * Signature: (I)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetDeviceGUID
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickGetGUID
+ * Signature: (J)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetGUID
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickGetGUIDFromString
+ * Signature: (Ljava/lang/String;)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetGUIDFromString
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickGetGUIDString
+ * Signature: ([B)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetGUIDString
+  (JNIEnv *, jclass, jbyteArray);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
  * Method:    gameControllerAddMappingsFromFile
  * Signature: (Ljava/lang/String;)I
  */

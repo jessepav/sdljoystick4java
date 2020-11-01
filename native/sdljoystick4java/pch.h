@@ -10,6 +10,7 @@
 // add headers that you want to pre-compile here
 #include "framework.h"
 #include <stdint.h>
+#include <string.h>
 
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
