@@ -182,8 +182,13 @@ public class Joystick
                 System.out.println();
                 int n = Integer.parseInt(args[0]);
                 Thread.sleep(200);
+                iterationLoop:
                 for (int i = 0; i < n; i++) {
                     joystick.update(true);
+                    if (!joystick.isAttached()) {
+                        System.out.println("Joystick disconnected!");
+                        break iterationLoop;
+                    }
                     for (int button = 0; button < joystick.getNumButtons(); button++) {
                         System.out.print(joystick.getButton(button) ? "1" : "0");
                         if (joystick.buttonPressed(button))

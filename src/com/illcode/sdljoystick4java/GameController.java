@@ -161,14 +161,19 @@ public class GameController
                 System.out.printf("Loaded %d controller mappings\n\n", numMappings);
             String cmd = args[0];
             int n = Integer.parseInt(args[1]);
-            final GameController gc = new GameController(0);
-            gc.setTransitionDetectionEnabled(true);
-            System.out.println("GameController - " + gc.getName());
+            final GameController controller = new GameController(0);
+            controller.setTransitionDetectionEnabled(true);
+            System.out.println("GameController - " + controller.getName());
             Thread.sleep(200);
             switch (cmd) {
             case "buttons":
+                iterationLoop:
                 for (int i = 0; i < n; i++) {
-                    gc.update(true);
+                    controller.update(true);
+                    if (!controller.isAttached()) {
+                        System.out.println("Controller disconnected!");
+                        break iterationLoop;
+                    }
                     if (i % 10 == 0) {
                         System.out.println("---------------------------------------------------------------------");
                         for (String sn : SdlConstants.SHORT_BUTTON_NAMES)
@@ -176,10 +181,10 @@ public class GameController
                         System.out.println("\n---------------------------------------------------------------------");
                     }
                     for (int button = 0; button < SdlConstants.SDL_CONTROLLER_BUTTON_MAX; button++) {
-                        System.out.print(gc.getButton(button) ? " 1" : " 0");
-                        if (gc.buttonPressed(button))
+                        System.out.print(controller.getButton(button) ? " 1" : " 0");
+                        if (controller.buttonPressed(button))
                             System.out.print("P");
-                        else if (gc.buttonReleased(button))
+                        else if (controller.buttonReleased(button))
                             System.out.print("R");
                         else
                             System.out.print(" ");
@@ -190,8 +195,13 @@ public class GameController
                 }
                 break;
             case "axes":
+                iterationLoop:
                 for (int i = 0; i < n; i++) {
-                    gc.update(true);
+                    controller.update(true);
+                    if (!controller.isAttached()) {
+                        System.out.println("Controller disconnected!");
+                        break iterationLoop;
+                    }
                     if (i % 10 == 0) {
                         System.out.println("---------------------------------------------------------------------");
                         for (String sn : SdlConstants.SHORT_AXIS_NAMES)
@@ -199,13 +209,13 @@ public class GameController
                         System.out.println("\n---------------------------------------------------------------------");
                     }
                     for (int axis = 0; axis < SdlConstants.SDL_CONTROLLER_AXIS_MAX; axis++)
-                        System.out.printf("%+6d  ", gc.getAxis(axis));
+                        System.out.printf("%+6d  ", controller.getAxis(axis));
                     System.out.println();
                     Thread.sleep(500);
                 }
                 break;
             }
-            gc.close();
+            controller.close();
         }
         SdlNative.cleanup();
     }
