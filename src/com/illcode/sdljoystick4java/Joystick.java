@@ -168,7 +168,7 @@ public class Joystick
 
     /**
      * Get the implementation-dependent GUID for the joystick
-     * @return Returns the GUID of the given joystick.
+     * @return GUID of the joystick.
      */
     public GUID getGUID() {
         return new GUID(SdlNative.joystickGetGUID(joystickPtr));
@@ -177,6 +177,33 @@ public class Joystick
     /** Return number of joysticks attached to the system. */
     public static int numJoysticks() {
         return SdlNative.numJoysticks();
+    }
+
+    /**
+     * Get the implementation-dependent GUID for the joystick at a given device index.
+     * @param deviceIdx index of the joystick ({@code 0 <= deviceIdx < numJoysticks()} )
+     * @return GUID of the given joystick
+     */
+    public static GUID getGUID(int deviceIdx) {
+        return new GUID(SdlNative.joystickGetDeviceGUID(deviceIdx));
+    }
+
+    /**
+     * Convert a GUID string into a GUID structure
+     * @param guidStr string containing an ASCII representation of a GUID
+     * @return GUID
+     */
+    public static GUID getGUID(String guidStr) {
+        return new GUID(SdlNative.joystickGetGUIDFromString(guidStr));
+    }
+
+    /**
+     * Get an ASCII string representation for a given GUID
+     * @param guid GUID structure
+     * @return ASCII string
+     */
+    public static String getGUIDString(GUID guid) {
+        return SdlNative.joystickGetGUIDString(guid.data);
     }
 
     /**
@@ -209,13 +236,22 @@ public class Joystick
         public GUID(byte[] data) {
             this.data = data;
         }
+
+        public String toString() {
+            return SdlNative.joystickGetGUIDString(data);
+        }
     }
 
     public static void main(String[] args) throws SdlException, InterruptedException {
         SdlNative.initJoysticks();
         if (Joystick.numJoysticks() > 0) {
+            System.out.println("GUID of device 0: " + getGUIDString(getGUID(0)));
             final Joystick joystick = new Joystick(0);
+            final String guidString = getGUIDString(joystick.getGUID());
+            System.out.println("GUID of joystick: " + guidString);
+            System.out.println("  Roundtrip GUID: " + getGUIDString(getGUID(guidString)));
             joystick.setTransitionDetectionEnabled(true);
+            System.out.println();
             System.out.println(joystick.toString());
             if (args.length >= 1) {
                 System.out.println();
