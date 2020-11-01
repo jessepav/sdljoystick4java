@@ -39,6 +39,11 @@ public final class SdlNative
      */
     public static native String getError();
 
+
+    // ==================================================================================
+    //   Joystick methods
+    // ==================================================================================
+
     /**
      * Return number of joysticks attached to the system.
      */
@@ -117,6 +122,19 @@ public final class SdlNative
      * @param button the button index to get the state from; indices start at index 0
      */
     public static native boolean joystickGetButton(long joystickPtr, int button);
+
+    /**
+     * Get the battery level of a joystick as a SDL_JoystickPowerLevel value.
+     * @param joystickPtr joystick pointer value
+     * @return the current battery level as one of the <tt>POWER</tt> constants in {@link SdlConstants}
+     *      on success or <tt>SDL_JOYSTICK_POWER_UNKNOWN</tt> if it is unknown
+     */
+    public static native int joystickCurrentPowerLevel(long joystickPtr);
+
+
+    // ==================================================================================
+    //   GameController methods
+    // ==================================================================================
 
     /**
      * Use this function to load a set of Game Controller mappings from a file, filtered by the current platform

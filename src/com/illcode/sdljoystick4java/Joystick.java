@@ -100,6 +100,16 @@ public class Joystick
     }
 
     /**
+     * Get the battery level of the joystick as a SDL_JoystickPowerLevel value.
+     * @return the current battery level as one of the <tt>POWER</tt> constants in {@link SdlConstants}
+     *      on success or <tt>SDL_JOYSTICK_POWER_UNKNOWN</tt> if it is unknown
+     */
+    public int getCurrentPowerLevel() {
+        return SdlNative.joystickCurrentPowerLevel(joystickPtr);
+    }
+
+
+    /**
      * Enable or disable support for button transition events. These are exposed through
      * the {@link #buttonPressed(int)} and {@link #buttonReleased(int)} methods. The usual
      * button polling method, {@link #getButton(int)}, reports if the button was pressed

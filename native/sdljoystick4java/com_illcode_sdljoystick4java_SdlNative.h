@@ -153,6 +153,14 @@ JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickG
 
 /*
  * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickCurrentPowerLevel
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickCurrentPowerLevel
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
  * Method:    gameControllerAddMappingsFromFile
  * Signature: (Ljava/lang/String;)I
  */

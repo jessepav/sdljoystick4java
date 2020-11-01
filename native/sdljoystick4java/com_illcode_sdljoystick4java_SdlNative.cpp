@@ -87,6 +87,10 @@ JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickG
 	return SDL_JoystickGetButton((SDL_Joystick*)(uintptr_t)joystickPtr, button) == 1 ? JNI_TRUE : JNI_FALSE;
 }
 
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickCurrentPowerLevel(JNIEnv* env, jclass cls, jlong joystickPtr) {
+	return SDL_JoystickCurrentPowerLevel((SDL_Joystick*)(uintptr_t)joystickPtr);
+}
+
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerAddMappingsFromFile(JNIEnv* env, jclass cls, jstring filename) {
 	const char* cstr = env->GetStringUTFChars(filename, NULL);
 	int numMappings = SDL_GameControllerAddMappingsFromFile(cstr);
