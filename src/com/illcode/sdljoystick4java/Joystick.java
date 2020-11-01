@@ -161,6 +161,15 @@ public class Joystick
         return SdlNative.numJoysticks();
     }
 
+    /**
+     * Returns the name of the joystick at the given index
+     * @param deviceIdx index of the joystick ({@code 0 <= deviceIdx < }{@link #numJoysticks()} )
+     * @return joystick name or <tt>null</tt> if not found
+     */
+    public static String getName(int deviceIdx) {
+        return SdlNative.joystickNameForIndex(deviceIdx);
+    }
+
     public String toString() {
         final StringBuilder sb = new StringBuilder(128);
         sb.append("sdljoystick4java.Joystick:\n");

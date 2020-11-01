@@ -61,6 +61,16 @@ public class GameController
     }
 
     /**
+     * Returns the name of the game controller at the given index
+     * @param deviceIdx index of the game controller ({@code 0 <= deviceIdx < }{@link Joystick#numJoysticks()} )
+     * @return game controller name or <tt>null</tt> if not found
+     */
+    public static String getName(int deviceIdx) {
+        return SdlNative.gameControllerNameForIndex(deviceIdx);
+    }
+
+
+    /**
      * Check if the controller has been opened and is currently connected
      * @return true if the controller has been opened and currently connected, or false otherwise
      */
