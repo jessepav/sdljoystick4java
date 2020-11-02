@@ -137,6 +137,22 @@ JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickNumBu
 
 /*
  * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickNumBalls
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickNumBalls
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickNumHats
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickNumHats
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
  * Method:    joystickGetAxis
  * Signature: (JI)S
  */
@@ -149,6 +165,22 @@ JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGet
  * Signature: (JI)Z
  */
 JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetButton
+  (JNIEnv *, jclass, jlong, jint);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickGetBall
+ * Signature: (JI[I)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetBall
+  (JNIEnv *, jclass, jlong, jint, jintArray);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    joystickGetHat
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetHat
   (JNIEnv *, jclass, jlong, jint);
 
 /*

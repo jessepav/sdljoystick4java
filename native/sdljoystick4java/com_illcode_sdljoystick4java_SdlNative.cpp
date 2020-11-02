@@ -1,4 +1,4 @@
-#pragma warning( disable : 26812)   // use of regular enums
+#pragma warning( disable : 26812 26451)   // use of regular enums
 
 #include "pch.h"
 #include "com_illcode_sdljoystick4java_SdlNative.h"
@@ -82,12 +82,36 @@ JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickNumBu
 	return SDL_JoystickNumButtons((SDL_Joystick*)(uintptr_t)joystickPtr);
 }
 
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickNumBalls(JNIEnv* env, jclass cls, jlong joystickPtr) {
+	return SDL_JoystickNumBalls((SDL_Joystick*)(uintptr_t)joystickPtr);
+}
+
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickNumHats(JNIEnv* env, jclass cls, jlong joystickPtr) {
+	return SDL_JoystickNumHats((SDL_Joystick*)(uintptr_t)joystickPtr);
+}
+
 JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetAxis(JNIEnv* env, jclass cls, jlong joystickPtr, jint axis) {
 	return SDL_JoystickGetAxis((SDL_Joystick*)(uintptr_t)joystickPtr, axis);
 }
 
 JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetButton(JNIEnv* env, jclass cls, jlong joystickPtr, jint button) {
-	return SDL_JoystickGetButton((SDL_Joystick*)(uintptr_t)joystickPtr, button) == 1 ? JNI_TRUE : JNI_FALSE;
+	return SDL_JoystickGetButton((SDL_Joystick*)(uintptr_t)joystickPtr, button);
+}
+
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetBall(JNIEnv* env, jclass cls, jlong joystickPtr, jint ball, jintArray deltas) {
+	int dx, dy;
+	int retval = SDL_JoystickGetBall((SDL_Joystick*)(uintptr_t)joystickPtr, ball, &dx, &dy);
+	jint* iarr = (jint *)env->GetPrimitiveArrayCritical(deltas, NULL);
+	if (iarr == NULL)
+		return -1;
+	iarr[0] = dx;
+	iarr[1] = dy;
+	env->ReleasePrimitiveArrayCritical(deltas, iarr, 0);
+	return retval;
+}
+
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickGetHat (JNIEnv *env, jclass cls, jlong joystickPtr, jint hat) {
+	return (jint)SDL_JoystickGetHat((SDL_Joystick*)(uintptr_t)joystickPtr, hat);
 }
 
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_joystickCurrentPowerLevel(JNIEnv* env, jclass cls, jlong joystickPtr) {
@@ -186,5 +210,5 @@ JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControl
 }
 
 JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerGetButton(JNIEnv* env, jclass cls, jlong gameControllerPtr, jint button) {
-	return SDL_GameControllerGetButton((SDL_GameController*)(uintptr_t)gameControllerPtr, (SDL_GameControllerButton)button) == 1 ? JNI_TRUE : JNI_FALSE;
+	return SDL_GameControllerGetButton((SDL_GameController*)(uintptr_t)gameControllerPtr, (SDL_GameControllerButton)button);
 }

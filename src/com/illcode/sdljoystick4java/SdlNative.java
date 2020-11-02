@@ -108,6 +108,20 @@ public final class SdlNative
     public static native int joystickNumButtons(long joystickPtr);
 
     /**
+     * Get the number of trackballs on a joystick.
+     * @param joystickPtr joystick pointer value
+     * @return number of trackballs on success or a negative error code on failure
+     */
+    public static native int joystickNumBalls(long joystickPtr);
+
+    /**
+     * Get the number of POV hats on a joystick.
+     * @param joystickPtr joystick pointer value
+     * @return number of POV hats on success or a negative error code on failure
+     */
+    public static native int joystickNumHats(long joystickPtr);
+
+    /**
      * Returns a 16-bit signed integer representing the current position of the axis
      * @param joystickPtr joystick pointer value
      * @param axis the axis to query; the axis indices start at index 0. On most modern joysticks the
@@ -122,6 +136,26 @@ public final class SdlNative
      * @param button the button index to get the state from; indices start at index 0
      */
     public static native boolean joystickGetButton(long joystickPtr, int button);
+
+    /**
+     * Get the ball axis change since the last poll. Trackballs can only return relative motion since
+     * the last call to this method.
+     * @param joystickPtr joystick pointer value
+     * @param ball the ball index to query; ball indices start at index 0
+     * @param deltas the difference in the axis position since the last poll, with index 0 storing dx
+     * and index 1 storing dy; thus, the passed array must have at least 2 elements -- no check will be performed,
+     * and memory corruption will likely result if you pass a shorter array.
+     * @return 0 on success or a negative error code on failure
+     */
+    public static native int joystickGetBall(long joystickPtr, int ball, int[] deltas);
+
+    /**
+     * Get the current state of a POV hat on a joystick
+     * @param joystickPtr joystick pointer value
+     * @param hat the hat index to get the state from; hat indices start at index 0
+     * @return one of the <tt>SDL_HAT</tt> constants in {@link SdlConstants}
+     */
+    public static native int joystickGetHat(long joystickPtr, int hat);
 
     /**
      * Get the battery level of a joystick as a SDL_JoystickPowerLevel value.

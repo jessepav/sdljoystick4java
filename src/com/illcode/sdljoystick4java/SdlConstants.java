@@ -50,4 +50,14 @@ public final class SdlConstants
                             SDL_JOYSTICK_POWER_FULL = 3,    /* <= 100% */
                             SDL_JOYSTICK_POWER_WIRED = 4,
                             SDL_JOYSTICK_POWER_MAX = 5;
+
+    public static final int SDL_HAT_CENTERED  = 0x00;
+    public static final int SDL_HAT_UP        = 0x01;
+    public static final int SDL_HAT_RIGHT     = 0x02;
+    public static final int SDL_HAT_DOWN      = 0x04;
+    public static final int SDL_HAT_LEFT      = 0x08;
+    public static final int SDL_HAT_RIGHTUP   = (SDL_HAT_RIGHT|SDL_HAT_UP);
+    public static final int SDL_HAT_RIGHTDOWN = (SDL_HAT_RIGHT|SDL_HAT_DOWN);
+    public static final int SDL_HAT_LEFTUP    = (SDL_HAT_LEFT|SDL_HAT_UP);
+    public static final int SDL_HAT_LEFTDOWN  = (SDL_HAT_LEFT|SDL_HAT_DOWN);
 }
