@@ -25,11 +25,16 @@ which is used with the SDL event loop), and the "user-facing" functions of the
 
 The most prominent libraries that bind SDL's joystick/gamepad API to Java ([sdl2gdx] and
 [jamepad]) are meant for use with LibGDX, and pull in parts of LibGDX as compile-time
-dependencies. Also, completely anectdotally (though it *is* what actually got me started
-writing my own binding), `sdl2gdx` reported the wrong number of buttons on my cheapo Retro
-SNES Controller, so I couldn't use the right shoulder button.
+dependencies. You can slot `sdljoystick4java` into your Swing or JavaFX or console program
+with little fuss. Also, completely anectdotally (though it *is* what actually got me
+started writing my own binding), `sdl2gdx` reported the wrong number of buttons on my
+cheapo Retro SNES Controller, so I couldn't use the right shoulder button.
 
 Finally, `sdljoystick4java` has a requirement on Java 7 instead of Java 8.
+
+On the other hand, `sdljoystick4java` doesn't have any fancy input processing, it won't
+transparently map keyboard presses to joystick events, and you'll have to [poll](#polling)
+and interpret joystick state on your own. Some may like it that way.
 
 [sdl2gdx]: https://github.com/electronstudio/sdl2gdx
 [jamepad]: https://github.com/williamahartman/Jamepad
@@ -48,12 +53,14 @@ Instead, set `java.library.path` to the directory containing `sdljoystick4java.d
 `SDL2.dll` (or your platform equivalents) and call [`SdlNative.loadNative()`] <!-- ` -->
 before calling any other methods.
 
-If you're running Windows, you can run either `test32.bat` or `test64.bat` (for 32-bit and
+If you're running Windows, you can run either [`test32.bat`] or [`test64.bat`] (for 32-bit and
 64-bit JVMs respectively) for a simple test of the first joystick or game controller on
-your system.
+your system. Those batch files also show how to set `java.library.path` from the command-line.
 
 [releases]: https://github.com/jessepav/sdljoystick4java/releases
 [`SdlNative.loadNative()`]: https://github.com/jessepav/sdljoystick4java/blob/master/src/com/illcode/sdljoystick4java/SdlNative.java#L15
+[`test32.bat`]: https://github.com/jessepav/sdljoystick4java/blob/master/dist/test32.bat
+[`test64.bat`]: https://github.com/jessepav/sdljoystick4java/blob/master/dist/test64.bat
 
 ## API
 
@@ -76,6 +83,13 @@ you can do this by passing `true` to one of the above `update()` methods, or cal
 [gcupdate]: https://jessepav.github.io/sdljoystick4java/javadoc/com/illcode/sdljoystick4java/GameController.html#update(boolean)
 [`SdlNative.update()`]: https://jessepav.github.io/sdljoystick4java/javadoc/com/illcode/sdljoystick4java/SdlNative.html#update()
 
+
+## Building
+
+### Windows
+
+See [BUILDING](https://github.com/jessepav/sdljoystick4java/blob/master/native/BUILDING.md#windows)
+for build instructions using Visual Studio (I used 2019).
 
 ## Other Platforms
 
