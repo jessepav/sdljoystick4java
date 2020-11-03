@@ -26,7 +26,7 @@ which is used with the SDL event loop), and the "user-facing" functions of the
 The most prominent libraries that bind SDL's joystick/gamepad API to Java ([sdl2gdx] and
 [jamepad]) are meant for use with LibGDX, and pull in parts of LibGDX as compile-time
 dependencies. You can slot `sdljoystick4java` into your Swing or JavaFX or console program
-with little fuss. Also, completely anectdotally (though it *is* what actually got me
+with little fuss. Also, completely anecdotally (though it *is* what actually got me
 started writing my own binding), `sdl2gdx` reported the wrong number of buttons on my
 cheapo Retro SNES Controller, so I couldn't use the right shoulder button.
 
@@ -50,7 +50,7 @@ hard to update the native libraries without waiting for the project maintainer t
 a new release.
 
 Instead, set `java.library.path` to the directory containing `sdljoystick4java.dll` and
-`SDL2.dll` (or your platform equivalents) and call [`SdlNative.loadNative()`] <!-- ` -->
+`SDL2.dll` (or your platform equivalents) and call [`SdlNative.loadNative()`]
 before calling any other methods.
 
 If you're running Windows, you can run either [`test32.bat`] or [`test64.bat`] (for 32-bit and
@@ -77,7 +77,7 @@ joystick/controller state on each iteration of your game loop. You do this by ca
 `update()` method of each [`Joystick`][jupdate] and [`GameController`][gcupdate] that
 you've opened. *Once* each polling cycle you'll need to update the native joystick state –
 you can do this by passing `true` to one of the above `update()` methods, or calling
-[`SdlNative.update()`] <!-- ` --> directly.
+[`SdlNative.update()`] directly.
 
 [jupdate]: https://jessepav.github.io/sdljoystick4java/javadoc/com/illcode/sdljoystick4java/Joystick.html#update(boolean)
 [gcupdate]: https://jessepav.github.io/sdljoystick4java/javadoc/com/illcode/sdljoystick4java/GameController.html#update(boolean)
@@ -101,3 +101,5 @@ If you set up build scripts for other platforms, I'll happily integrate the PRs.
 
 [SdlNative.h]: https://github.com/jessepav/sdljoystick4java/blob/master/native/sdljoystick4java/com_illcode_sdljoystick4java_SdlNative.h
 [SdlNative.cpp]: https://github.com/jessepav/sdljoystick4java/blob/master/native/sdljoystick4java/com_illcode_sdljoystick4java_SdlNative.cpp
+
+<!-- :mode=Markdown-Simple: -->
