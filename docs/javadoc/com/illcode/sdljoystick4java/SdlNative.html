@@ -1,0 +1,949 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<title>SdlNative (sdljoystick4java Javadocs)</title>
+<link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="SdlNative (sdljoystick4java Javadocs)";
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../com/illcode/sdljoystick4java/package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../index-all.html">Index</a></li>
+<li><a href="../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../com/illcode/sdljoystick4java/SdlException.html" title="class in com.illcode.sdljoystick4java"><span class="strong">Prev Class</span></a></li>
+<li>Next Class</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../index.html?com/illcode/sdljoystick4java/SdlNative.html" target="_top">Frames</a></li>
+<li><a href="SdlNative.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">com.illcode.sdljoystick4java</div>
+<h2 title="Class SdlNative" class="title">Class SdlNative</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li>java.lang.Object</li>
+<li>
+<ul class="inheritance">
+<li>com.illcode.sdljoystick4java.SdlNative</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<hr>
+<br>
+<pre>public final class <span class="strong">SdlNative</span>
+extends java.lang.Object</pre>
+<div class="block">Direct mappings for JNI methods.
+ <p/>
+ Note that you will need to load the native shared libaries before calling any of the native
+ methods in this class. Typically you can do this via <a href="../../../com/illcode/sdljoystick4java/SdlNative.html#loadNative(boolean)"><code>loadNative(boolean)</code></a>, but if
+ you have your own system in place, we don't force any conventions on you by putting the
+ <tt>System.loadLibrary()</tt> calls in a <tt>static {}</tt> block.</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#SdlNative()">SdlNative</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#cleanup()">cleanup</a></strong>()</code>
+<div class="block">Cleanup any resources and call SDL_Quit()</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerAddMappingsFromFile(java.lang.String)">gameControllerAddMappingsFromFile</a></strong>(java.lang.String&nbsp;filename)</code>
+<div class="block">Use this function to load a set of Game Controller mappings from a file, filtered by the current platform</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerClose(long)">gameControllerClose</a></strong>(long&nbsp;gameControllerPtr)</code>
+<div class="block">Close a game controller previously opened with gameControllerOpen()</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static long</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerFromInstanceId(int)">gameControllerFromInstanceId</a></strong>(int&nbsp;instanceId)</code>
+<div class="block">Returns a pointer to a game controller ID structure on success or 0 on failure.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerGetAttached(long)">gameControllerGetAttached</a></strong>(long&nbsp;gameControllerPtr)</code>
+<div class="block">Check if a controller has been opened and is currently connected</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static short</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerGetAxis(long,%20int)">gameControllerGetAxis</a></strong>(long&nbsp;gameControllerPtr,
+                     int&nbsp;axis)</code>
+<div class="block">Get the current state of an axis control on a game controller.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerGetButton(long,%20int)">gameControllerGetButton</a></strong>(long&nbsp;gameControllerPtr,
+                       int&nbsp;button)</code>
+<div class="block">get the current state of a button on a game controller</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static long</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerGetJoystick(long)">gameControllerGetJoystick</a></strong>(long&nbsp;gameControllerPtr)</code>
+<div class="block">Return the joystick ID pointer for a game controller</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerName(long)">gameControllerName</a></strong>(long&nbsp;gameControllerPtr)</code>
+<div class="block">Returns the name of the given game controller</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerNameForIndex(int)">gameControllerNameForIndex</a></strong>(int&nbsp;deviceIdx)</code>
+<div class="block">Returns the name of the game controller at the given index</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static long</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#gameControllerOpen(int)">gameControllerOpen</a></strong>(int&nbsp;deviceIdx)</code>
+<div class="block">Open a game controller and return a pointer to a game controller ID structure</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static long</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#getDirectByteBufferAddress(java.nio.ByteBuffer)">getDirectByteBufferAddress</a></strong>(java.nio.ByteBuffer&nbsp;b)</code>
+<div class="block">Get the native address of a direct byte buffer.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#getError()">getError</a></strong>()</code>
+<div class="block">If any method signalled an error (via return code), return the error string.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#getInstanceId(long)">getInstanceId</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Returns the instance ID of the specified joystick on success or a negative error code on failure.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#initGameControllers()">initGameControllers</a></strong>()</code>
+<div class="block">Initialize the SDL GameController subsystem</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#initJoysticks()">initJoysticks</a></strong>()</code>
+<div class="block">Initialize the SDL Joystick subsystem</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#isGameController(int)">isGameController</a></strong>(int&nbsp;deviceIdx)</code>
+<div class="block">Use this function to check if the given joystick is supported by the game controller interface.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickClose(long)">joystickClose</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Close a joystick previously opened with joystickOpen()</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickCurrentPowerLevel(long)">joystickCurrentPowerLevel</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Get the battery level of a joystick as a SDL_JoystickPowerLevel value.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static long</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickFromInstanceId(int)">joystickFromInstanceId</a></strong>(int&nbsp;instanceId)</code>
+<div class="block">Returns a pointer to a joystick ID structure on success or 0 on failure.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetAttached(long)">joystickGetAttached</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Get the status of a specified joystick</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static short</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetAxis(long,%20int)">joystickGetAxis</a></strong>(long&nbsp;joystickPtr,
+               int&nbsp;axis)</code>
+<div class="block">Returns a 16-bit signed integer representing the current position of the axis</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetBall(long,%20int,%20int[])">joystickGetBall</a></strong>(long&nbsp;joystickPtr,
+               int&nbsp;ball,
+               int[]&nbsp;deltas)</code>
+<div class="block">Get the ball axis change since the last poll.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetButton(long,%20int)">joystickGetButton</a></strong>(long&nbsp;joystickPtr,
+                 int&nbsp;button)</code>
+<div class="block">Returns true if the specified button is pressed, false otherwise</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static byte[]</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetDeviceGUID(int)">joystickGetDeviceGUID</a></strong>(int&nbsp;deviceIdx)</code>
+<div class="block">Get the implementation-dependent GUID for the joystick at a given device index.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static byte[]</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetGUID(long)">joystickGetGUID</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Get the implementation-dependent GUID for the joystick</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static byte[]</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetGUIDFromString(java.lang.String)">joystickGetGUIDFromString</a></strong>(java.lang.String&nbsp;guidStr)</code>
+<div class="block">Convert a GUID string into a GUID structure</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetGUIDString(byte[])">joystickGetGUIDString</a></strong>(byte[]&nbsp;guid)</code>
+<div class="block">Get an ASCII string representation for a given GUID</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickGetHat(long,%20int)">joystickGetHat</a></strong>(long&nbsp;joystickPtr,
+              int&nbsp;hat)</code>
+<div class="block">Get the current state of a POV hat on a joystick</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickName(long)">joystickName</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Returns the name of the given joystick.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickNameForIndex(int)">joystickNameForIndex</a></strong>(int&nbsp;deviceIdx)</code>
+<div class="block">Returns the name of the joystick at the given index</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickNumAxes(long)">joystickNumAxes</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Returns the number of axis controls/number of axes on success or a negative error code on failure</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickNumBalls(long)">joystickNumBalls</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Get the number of trackballs on a joystick.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickNumButtons(long)">joystickNumButtons</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Returns the number of buttons on success or a negative error code on failure</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickNumHats(long)">joystickNumHats</a></strong>(long&nbsp;joystickPtr)</code>
+<div class="block">Get the number of POV hats on a joystick.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static long</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#joystickOpen(int)">joystickOpen</a></strong>(int&nbsp;deviceIdx)</code>
+<div class="block">Open a joystick and return a pointer to a joystick ID structure</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#loadNative(boolean)">loadNative</a></strong>(boolean&nbsp;loadSDL)</code>
+<div class="block">Load native shared libraries by calling <tt>System.loadLibrary()</tt></div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#numJoysticks()">numJoysticks</a></strong>()</code>
+<div class="block">Return number of joysticks attached to the system.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><strong><a href="../../../com/illcode/sdljoystick4java/SdlNative.html#update()">update</a></strong>()</code>
+<div class="block">Poll joystick and gamecontroller state</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.Object</h3>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="SdlNative()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>SdlNative</h4>
+<pre>public&nbsp;SdlNative()</pre>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="loadNative(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>loadNative</h4>
+<pre>public static&nbsp;void&nbsp;loadNative(boolean&nbsp;loadSDL)</pre>
+<div class="block">Load native shared libraries by calling <tt>System.loadLibrary()</tt></div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>loadSDL</code> - if true, we load <tt>SDL2</tt> prior to our JNI DLL (this is necessary if SDL2.dll,
+  or the platform equivalent, is not found on the standard shared library search path)</dd></dl>
+</li>
+</ul>
+<a name="getDirectByteBufferAddress(java.nio.ByteBuffer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDirectByteBufferAddress</h4>
+<pre>public static&nbsp;long&nbsp;getDirectByteBufferAddress(java.nio.ByteBuffer&nbsp;b)</pre>
+<div class="block">Get the native address of a direct byte buffer.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>b</code> - buffer</dd>
+<dt><span class="strong">Returns:</span></dt><dd>address of buffer</dd></dl>
+</li>
+</ul>
+<a name="initJoysticks()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>initJoysticks</h4>
+<pre>public static&nbsp;void&nbsp;initJoysticks()</pre>
+<div class="block">Initialize the SDL Joystick subsystem</div>
+</li>
+</ul>
+<a name="initGameControllers()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>initGameControllers</h4>
+<pre>public static&nbsp;void&nbsp;initGameControllers()</pre>
+<div class="block">Initialize the SDL GameController subsystem</div>
+</li>
+</ul>
+<a name="cleanup()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>cleanup</h4>
+<pre>public static&nbsp;void&nbsp;cleanup()</pre>
+<div class="block">Cleanup any resources and call SDL_Quit()</div>
+</li>
+</ul>
+<a name="update()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>update</h4>
+<pre>public static&nbsp;void&nbsp;update()</pre>
+<div class="block">Poll joystick and gamecontroller state</div>
+</li>
+</ul>
+<a name="getError()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getError</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;getError()</pre>
+<div class="block">If any method signalled an error (via return code), return the error string.</div>
+</li>
+</ul>
+<a name="numJoysticks()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>numJoysticks</h4>
+<pre>public static&nbsp;int&nbsp;numJoysticks()</pre>
+<div class="block">Return number of joysticks attached to the system.</div>
+</li>
+</ul>
+<a name="joystickOpen(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickOpen</h4>
+<pre>public static&nbsp;long&nbsp;joystickOpen(int&nbsp;deviceIdx)</pre>
+<div class="block">Open a joystick and return a pointer to a joystick ID structure</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>deviceIdx</code> - index of the joystick (<code>0 &lt;= deviceIdx &lt; numJoysticks()</code> )</dd>
+<dt><span class="strong">Returns:</span></dt><dd>pointer value, or 0 on error</dd></dl>
+</li>
+</ul>
+<a name="joystickClose(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickClose</h4>
+<pre>public static&nbsp;void&nbsp;joystickClose(long&nbsp;joystickPtr)</pre>
+<div class="block">Close a joystick previously opened with joystickOpen()</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd></dl>
+</li>
+</ul>
+<a name="joystickGetAttached(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetAttached</h4>
+<pre>public static&nbsp;boolean&nbsp;joystickGetAttached(long&nbsp;joystickPtr)</pre>
+<div class="block">Get the status of a specified joystick</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the joystick has been opened, false if it has not</dd></dl>
+</li>
+</ul>
+<a name="getInstanceId(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getInstanceId</h4>
+<pre>public static&nbsp;int&nbsp;getInstanceId(long&nbsp;joystickPtr)</pre>
+<div class="block">Returns the instance ID of the specified joystick on success or a negative error code on failure.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - long pointer returned by <code>joystickOpen()</code></dd></dl>
+</li>
+</ul>
+<a name="joystickFromInstanceId(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickFromInstanceId</h4>
+<pre>public static&nbsp;long&nbsp;joystickFromInstanceId(int&nbsp;instanceId)</pre>
+<div class="block">Returns a pointer to a joystick ID structure on success or 0 on failure.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>instanceId</code> - instance ID as returned by <code>getInstanceId()</code></dd></dl>
+</li>
+</ul>
+<a name="joystickName(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickName</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;joystickName(long&nbsp;joystickPtr)</pre>
+<div class="block">Returns the name of the given joystick.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>joystick name or <tt>null</tt> if not found</dd></dl>
+</li>
+</ul>
+<a name="joystickNameForIndex(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickNameForIndex</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;joystickNameForIndex(int&nbsp;deviceIdx)</pre>
+<div class="block">Returns the name of the joystick at the given index</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>deviceIdx</code> - index of the joystick (<code>0 &lt;= deviceIdx &lt; numJoysticks()</code> )</dd>
+<dt><span class="strong">Returns:</span></dt><dd>joystick name or <tt>null</tt> if not found</dd></dl>
+</li>
+</ul>
+<a name="joystickNumAxes(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickNumAxes</h4>
+<pre>public static&nbsp;int&nbsp;joystickNumAxes(long&nbsp;joystickPtr)</pre>
+<div class="block">Returns the number of axis controls/number of axes on success or a negative error code on failure</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd></dl>
+</li>
+</ul>
+<a name="joystickNumButtons(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickNumButtons</h4>
+<pre>public static&nbsp;int&nbsp;joystickNumButtons(long&nbsp;joystickPtr)</pre>
+<div class="block">Returns the number of buttons on success or a negative error code on failure</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd></dl>
+</li>
+</ul>
+<a name="joystickNumBalls(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickNumBalls</h4>
+<pre>public static&nbsp;int&nbsp;joystickNumBalls(long&nbsp;joystickPtr)</pre>
+<div class="block">Get the number of trackballs on a joystick.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>number of trackballs on success or a negative error code on failure</dd></dl>
+</li>
+</ul>
+<a name="joystickNumHats(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickNumHats</h4>
+<pre>public static&nbsp;int&nbsp;joystickNumHats(long&nbsp;joystickPtr)</pre>
+<div class="block">Get the number of POV hats on a joystick.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>number of POV hats on success or a negative error code on failure</dd></dl>
+</li>
+</ul>
+<a name="joystickGetAxis(long, int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetAxis</h4>
+<pre>public static&nbsp;short&nbsp;joystickGetAxis(long&nbsp;joystickPtr,
+                    int&nbsp;axis)</pre>
+<div class="block">Returns a 16-bit signed integer representing the current position of the axis</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd><dd><code>axis</code> - the axis to query; the axis indices start at index 0. On most modern joysticks the
+      X axis is usually represented by axis 0 and the Y axis by axis 1</dd>
+<dt><span class="strong">Returns:</span></dt><dd>a value ranging from -32768 to 32767 or 0 on failure</dd></dl>
+</li>
+</ul>
+<a name="joystickGetButton(long, int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetButton</h4>
+<pre>public static&nbsp;boolean&nbsp;joystickGetButton(long&nbsp;joystickPtr,
+                        int&nbsp;button)</pre>
+<div class="block">Returns true if the specified button is pressed, false otherwise</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd><dd><code>button</code> - the button index to get the state from; indices start at index 0</dd></dl>
+</li>
+</ul>
+<a name="joystickGetBall(long, int, int[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetBall</h4>
+<pre>public static&nbsp;int&nbsp;joystickGetBall(long&nbsp;joystickPtr,
+                  int&nbsp;ball,
+                  int[]&nbsp;deltas)</pre>
+<div class="block">Get the ball axis change since the last poll. Trackballs can only return relative motion since
+ the last call to this method.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd><dd><code>ball</code> - the ball index to query; ball indices start at index 0</dd><dd><code>deltas</code> - the difference in the axis position since the last poll, with index 0 storing dx
+ and index 1 storing dy; thus, the passed array must have at least 2 elements -- no check will be performed,
+ and memory corruption will likely result if you pass a shorter array.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>0 on success or a negative error code on failure</dd></dl>
+</li>
+</ul>
+<a name="joystickGetHat(long, int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetHat</h4>
+<pre>public static&nbsp;int&nbsp;joystickGetHat(long&nbsp;joystickPtr,
+                 int&nbsp;hat)</pre>
+<div class="block">Get the current state of a POV hat on a joystick</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd><dd><code>hat</code> - the hat index to get the state from; hat indices start at index 0</dd>
+<dt><span class="strong">Returns:</span></dt><dd>one of the <tt>SDL_HAT</tt> constants in <a href="../../../com/illcode/sdljoystick4java/SdlConstants.html" title="class in com.illcode.sdljoystick4java"><code>SdlConstants</code></a></dd></dl>
+</li>
+</ul>
+<a name="joystickCurrentPowerLevel(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickCurrentPowerLevel</h4>
+<pre>public static&nbsp;int&nbsp;joystickCurrentPowerLevel(long&nbsp;joystickPtr)</pre>
+<div class="block">Get the battery level of a joystick as a SDL_JoystickPowerLevel value.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the current battery level as one of the <tt>POWER</tt> constants in <a href="../../../com/illcode/sdljoystick4java/SdlConstants.html" title="class in com.illcode.sdljoystick4java"><code>SdlConstants</code></a>
+      on success or <tt>SDL_JOYSTICK_POWER_UNKNOWN</tt> if it is unknown</dd></dl>
+</li>
+</ul>
+<a name="joystickGetDeviceGUID(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetDeviceGUID</h4>
+<pre>public static&nbsp;byte[]&nbsp;joystickGetDeviceGUID(int&nbsp;deviceIdx)</pre>
+<div class="block">Get the implementation-dependent GUID for the joystick at a given device index.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>deviceIdx</code> - index of the joystick (<code>0 &lt;= deviceIdx &lt; numJoysticks()</code> )</dd>
+<dt><span class="strong">Returns:</span></dt><dd>GUID of the given joystick as a byte array (of length 16, as of SDL 2.0.12)
+         If called on an invalid index, this function returns a zero GUID</dd></dl>
+</li>
+</ul>
+<a name="joystickGetGUID(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetGUID</h4>
+<pre>public static&nbsp;byte[]&nbsp;joystickGetGUID(long&nbsp;joystickPtr)</pre>
+<div class="block">Get the implementation-dependent GUID for the joystick</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>joystickPtr</code> - joystick pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>GUID of the given joystick as a byte array (of length 16, as of SDL 2.0.12)
+         If called on an invalid index, this function returns a zero GUID</dd></dl>
+</li>
+</ul>
+<a name="joystickGetGUIDFromString(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetGUIDFromString</h4>
+<pre>public static&nbsp;byte[]&nbsp;joystickGetGUIDFromString(java.lang.String&nbsp;guidStr)</pre>
+<div class="block">Convert a GUID string into a GUID structure</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>guidStr</code> - string containing an ASCII representation of a GUID</dd>
+<dt><span class="strong">Returns:</span></dt><dd>GUID structure as a byte array</dd></dl>
+</li>
+</ul>
+<a name="joystickGetGUIDString(byte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>joystickGetGUIDString</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;joystickGetGUIDString(byte[]&nbsp;guid)</pre>
+<div class="block">Get an ASCII string representation for a given GUID</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>guid</code> - GUID structure as a byte array</dd>
+<dt><span class="strong">Returns:</span></dt><dd>ASCII string</dd></dl>
+</li>
+</ul>
+<a name="gameControllerAddMappingsFromFile(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerAddMappingsFromFile</h4>
+<pre>public static&nbsp;int&nbsp;gameControllerAddMappingsFromFile(java.lang.String&nbsp;filename)</pre>
+<div class="block">Use this function to load a set of Game Controller mappings from a file, filtered by the current platform</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>filename</code> - the name of the database you want to load</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Returns the number of mappings added or -1 on error</dd><dt><span class="strong">See Also:</span></dt><dd><a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB on GitHub</a></dd></dl>
+</li>
+</ul>
+<a name="isGameController(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isGameController</h4>
+<pre>public static&nbsp;boolean&nbsp;isGameController(int&nbsp;deviceIdx)</pre>
+<div class="block">Use this function to check if the given joystick is supported by the game controller interface.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>deviceIdx</code> - index of the joystick (<code>0 &lt;= deviceIdx &lt; numJoysticks()</code> )</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Returns <tt>true</tt> if the given joystick is supported by the game controller interface,
+      <tt>false</tt> if it isn't or it's an invalid index</dd></dl>
+</li>
+</ul>
+<a name="gameControllerOpen(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerOpen</h4>
+<pre>public static&nbsp;long&nbsp;gameControllerOpen(int&nbsp;deviceIdx)</pre>
+<div class="block">Open a game controller and return a pointer to a game controller ID structure</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>deviceIdx</code> - index of the joystick (<code>0 &lt;= deviceIdx &lt; numJoysticks()</code> )</dd>
+<dt><span class="strong">Returns:</span></dt><dd>pointer value, or 0 on error</dd></dl>
+</li>
+</ul>
+<a name="gameControllerFromInstanceId(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerFromInstanceId</h4>
+<pre>public static&nbsp;long&nbsp;gameControllerFromInstanceId(int&nbsp;instanceId)</pre>
+<div class="block">Returns a pointer to a game controller ID structure on success or 0 on failure.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>instanceId</code> - instance ID as returned by <code>getInstanceId()</code></dd></dl>
+</li>
+</ul>
+<a name="gameControllerClose(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerClose</h4>
+<pre>public static&nbsp;void&nbsp;gameControllerClose(long&nbsp;gameControllerPtr)</pre>
+<div class="block">Close a game controller previously opened with gameControllerOpen()</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>gameControllerPtr</code> - game controller pointer value</dd></dl>
+</li>
+</ul>
+<a name="gameControllerGetAttached(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerGetAttached</h4>
+<pre>public static&nbsp;boolean&nbsp;gameControllerGetAttached(long&nbsp;gameControllerPtr)</pre>
+<div class="block">Check if a controller has been opened and is currently connected</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>gameControllerPtr</code> - game controller pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the controller has been opened and currently connected, or false otherwise</dd></dl>
+</li>
+</ul>
+<a name="gameControllerGetJoystick(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerGetJoystick</h4>
+<pre>public static&nbsp;long&nbsp;gameControllerGetJoystick(long&nbsp;gameControllerPtr)</pre>
+<div class="block">Return the joystick ID pointer for a game controller</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>gameControllerPtr</code> - game controller pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>joystick pointer value</dd></dl>
+</li>
+</ul>
+<a name="gameControllerName(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerName</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;gameControllerName(long&nbsp;gameControllerPtr)</pre>
+<div class="block">Returns the name of the given game controller</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>gameControllerPtr</code> - game controller pointer value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>game controller name or <tt>null</tt> if not found</dd></dl>
+</li>
+</ul>
+<a name="gameControllerNameForIndex(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerNameForIndex</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;gameControllerNameForIndex(int&nbsp;deviceIdx)</pre>
+<div class="block">Returns the name of the game controller at the given index</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>deviceIdx</code> - index of the game controller (<code>0 &lt;= deviceIdx &lt; numJoysticks()</code> )</dd>
+<dt><span class="strong">Returns:</span></dt><dd>game controller name or <tt>null</tt> if not found</dd></dl>
+</li>
+</ul>
+<a name="gameControllerGetAxis(long, int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gameControllerGetAxis</h4>
+<pre>public static&nbsp;short&nbsp;gameControllerGetAxis(long&nbsp;gameControllerPtr,
+                          int&nbsp;axis)</pre>
+<div class="block">Get the current state of an axis control on a game controller.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>gameControllerPtr</code> - game controller pointer value</dd><dd><code>axis</code> - one of the AXIS constants in <a href="../../../com/illcode/sdljoystick4java/SdlConstants.html" title="class in com.illcode.sdljoystick4java"><code>SdlConstants</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Returns axis state (including 0) on success or 0 (also) on failure.
+         The state is a value ranging from -32768 to 32767.
+         Triggers, however, range from 0 to 32767 (they never return a negative value)</dd></dl>
+</li>
+</ul>
+<a name="gameControllerGetButton(long, int)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>gameControllerGetButton</h4>
+<pre>public static&nbsp;boolean&nbsp;gameControllerGetButton(long&nbsp;gameControllerPtr,
+                              int&nbsp;button)</pre>
+<div class="block">get the current state of a button on a game controller</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>gameControllerPtr</code> - game controller pointer value</dd><dd><code>button</code> - one of the BUTTON constants in <a href="../../../com/illcode/sdljoystick4java/SdlConstants.html" title="class in com.illcode.sdljoystick4java"><code>SdlConstants</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Returns <tt>true</tt> for pressed state or <tt>false</tt> for not pressed state or error</dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../com/illcode/sdljoystick4java/package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../index-all.html">Index</a></li>
+<li><a href="../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../com/illcode/sdljoystick4java/SdlException.html" title="class in com.illcode.sdljoystick4java"><span class="strong">Prev Class</span></a></li>
+<li>Next Class</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../index.html?com/illcode/sdljoystick4java/SdlNative.html" target="_top">Frames</a></li>
+<li><a href="SdlNative.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+</body>
+</html>

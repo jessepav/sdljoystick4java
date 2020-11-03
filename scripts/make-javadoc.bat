@@ -18,7 +18,7 @@ mkdir %output_dir%
 
 javadoc -classpath lib\*;build\classes -%visibility% %linksrc% ^
         -sourcepath src -subpackages com.illcode.sdljoystick4java -exclude com.illcode.sdljoystick4java.test -d "%output_dir%" ^
-        -windowtitle "sdljoystick4java Javadocs" -doctitle "sdljoystick4java Javadocs"
+        -windowtitle "sdljoystick4java Javadocs" -doctitle "sdljoystick4java Javadocs" -notimestamp
 
 ::    -overview src\overview.html ^
 
