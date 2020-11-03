@@ -14,9 +14,11 @@ public final class SdlConstants
                             SDL_CONTROLLER_AXIS_TRIGGERRIGHT = 5,
                             SDL_CONTROLLER_AXIS_MAX = 6;
 
+    /** Names of the axes indexed by the <tt>SDL_CONTROLLER_AXIS</tt> constants. */
     public static final String[] AXIS_NAMES = new String[]
         {"LEFTX", "LEFTY", "RIGHTX", "RIGHTY", "TRIGGERLEFT", "TRIGGERRIGHT"};
 
+    /** Short names of the axes indexed by the <tt>SDL_CONTROLLER_AXIS</tt> constants. */
     public static final String[] SHORT_AXIS_NAMES = new String[]
         {"LX", "LY", "RX", "RY", "TL", "TR"};
 
@@ -38,10 +40,12 @@ public final class SdlConstants
                             SDL_CONTROLLER_BUTTON_DPAD_RIGHT = 14,
          	            SDL_CONTROLLER_BUTTON_MAX = 15;
 
+    /** Names of the buttons indexed by the <tt>SDL_CONTROLLER_BUTTON</tt> constants. */
     public static final String[] BUTTON_NAMES = new String[]
         {"A", "B", "X", "Y", "BACK", "GUIDE", "START", "LEFTSTICK", "RIGHTSTICK",
          "LEFTSHOULDER", "RIGHTSHOULDER", "DPAD_UP", "DPAD_DOWN", "DPAD_LEFT", "DPAD_RIGHT"};
 
+    /** Short names of the buttons indexed by the <tt>SDL_CONTROLLER_BUTTON</tt> constants. */
     public static final String[] SHORT_BUTTON_NAMES = new String[]
         {"A", "B", "X", "Y", "BK", "GD", "ST", "LST", "RST",
          "LSH", "RSH", "DU", "DD", "DL", "DR"};
