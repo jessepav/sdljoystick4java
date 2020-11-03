@@ -3,6 +3,12 @@
 /.idea/workspace.xml
 
 /build
+/dist/lib
+/dist/resources
+/dist/*.jar
+
+/__artifacts_temp
+
 /build.properties
 
 **/.vs

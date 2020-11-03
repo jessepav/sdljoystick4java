@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jar">
+    <output-path>$PROJECT_DIR$/build/artifacts/jar</output-path>
+    <root id="archive" name="sdljoystick4java.jar">
+      <element id="module-output" name="sdljoystick4java" />
+    </root>
+  </artifact>
+</component>
