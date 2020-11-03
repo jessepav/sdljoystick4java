@@ -1,5 +1,8 @@
 package com.illcode.sdljoystick4java;
 
+/**
+ * Constant values taken from SDL headers.
+ */
 public final class SdlConstants
 {
     public static final int SDL_CONTROLLER_AXIS_INVALID = -1,

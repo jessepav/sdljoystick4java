@@ -2,6 +2,11 @@ package com.illcode.sdljoystick4java;
 
 import java.nio.file.Path;
 
+/**
+ * A wrapper class for the native GameController methods found in {@link SdlNative}.
+ * <p/>
+ * Prior to using this class, you'll need to call {@link SdlNative#initGameControllers()}.
+ */
 public class GameController
 {
     private long gameControllerPtr;
@@ -10,6 +15,11 @@ public class GameController
     private boolean transitionDetectionEnabled;
     private boolean[] currentButtonState, previousButtonState;
 
+    /**
+     * Construct a GameController
+     * @param deviceIdx index of the game controller ({@code 0 <= deviceIdx < }{@link Joystick#numJoysticks()} )
+     * @throws SdlException thrown if the native <tt>SDL_GameControllerOpen()</tt> function fails
+     */
     public GameController(int deviceIdx) throws SdlException {
         if (!SdlNative.isGameController(deviceIdx))
             throw new SdlException("Device is not a game controller");
@@ -23,7 +33,7 @@ public class GameController
      * Load a set of Game Controller mappings from a file, filtered by the current platform
      * @param dbPath the path of the database you want to load
      * @return Returns the number of mappings added or -1 on error
-     * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB</a> on GitHub
+     * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB on GitHub</a>
      */
     public static int addMappingsFromFile(Path dbPath) {
         return SdlNative.gameControllerAddMappingsFromFile(dbPath.toString());
@@ -33,7 +43,7 @@ public class GameController
      * Load a set of Game Controller mappings from a file, filtered by the current platform
      * @param dbName the name of the database you want to load
      * @return Returns the number of mappings added or -1 on error
-     * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB</a> on GitHub
+     * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB on GitHub</a>
      */
     public static int addMappingsFromFile(String dbName) {
         return SdlNative.gameControllerAddMappingsFromFile(dbName);
@@ -105,7 +115,7 @@ public class GameController
      * Enable or disable support for button transition events. These are exposed through
      * the {@link #buttonPressed(int)} and {@link #buttonReleased(int)} methods. The usual
      * button polling method, {@link #getButton(int)}, reports if the button was pressed
-     * at the time of the last call to {@link #update()}. The button transition methods,
+     * at the time of the last call to {@link #update(boolean)}. The button transition methods,
      * in comparison, report if the button was pressed (or released) in the most recent
      * call to <tt>update()</tt>, and <em>not</em> pressed (or released) at the time of
      * the previous <tt>update()</tt>.
@@ -156,77 +166,5 @@ public class GameController
             for (int b = 0; b < SdlConstants.SDL_CONTROLLER_BUTTON_MAX; b++)
                 currentButtonState[b] = SdlNative.gameControllerGetButton(gameControllerPtr, b);
         }
-    }
-
-    public static void main(String[] args) throws SdlException, InterruptedException {
-        if (args.length < 2) {
-            System.out.println("Usage: GameController axes|buttons <num iterations>");
-            System.exit(0);
-        }
-        SdlNative.initJoysticks();
-        SdlNative.initGameControllers();
-        if (Joystick.numJoysticks() > 0) {
-            int numMappings = GameController.addMappingsFromFile("resources/gamecontrollerdb.txt");
-            if (numMappings > 0)
-                System.out.printf("Loaded %d controller mappings\n\n", numMappings);
-            String cmd = args[0];
-            int n = Integer.parseInt(args[1]);
-            final GameController controller = new GameController(0);
-            controller.setTransitionDetectionEnabled(true);
-            System.out.println("GameController - " + controller.getName());
-            Thread.sleep(200);
-            switch (cmd) {
-            case "buttons":
-                iterationLoop:
-                for (int i = 0; i < n; i++) {
-                    controller.update(true);
-                    if (!controller.isAttached()) {
-                        System.out.println("Controller disconnected!");
-                        break iterationLoop;
-                    }
-                    if (i % 10 == 0) {
-                        System.out.println("---------------------------------------------------------------------");
-                        for (String sn : SdlConstants.SHORT_BUTTON_NAMES)
-                            System.out.printf("%3s ", sn);
-                        System.out.println("\n---------------------------------------------------------------------");
-                    }
-                    for (int button = 0; button < SdlConstants.SDL_CONTROLLER_BUTTON_MAX; button++) {
-                        System.out.print(controller.getButton(button) ? " 1" : " 0");
-                        if (controller.buttonPressed(button))
-                            System.out.print("P");
-                        else if (controller.buttonReleased(button))
-                            System.out.print("R");
-                        else
-                            System.out.print(" ");
-                        System.out.print(" ");
-                    }
-                    System.out.println();
-                    Thread.sleep(500);
-                }
-                break;
-            case "axes":
-                iterationLoop:
-                for (int i = 0; i < n; i++) {
-                    controller.update(true);
-                    if (!controller.isAttached()) {
-                        System.out.println("Controller disconnected!");
-                        break iterationLoop;
-                    }
-                    if (i % 10 == 0) {
-                        System.out.println("---------------------------------------------------------------------");
-                        for (String sn : SdlConstants.SHORT_AXIS_NAMES)
-                            System.out.printf("%6s  ", sn);
-                        System.out.println("\n---------------------------------------------------------------------");
-                    }
-                    for (int axis = 0; axis < SdlConstants.SDL_CONTROLLER_AXIS_MAX; axis++)
-                        System.out.printf("%+6d  ", controller.getAxis(axis));
-                    System.out.println();
-                    Thread.sleep(500);
-                }
-                break;
-            }
-            controller.close();
-        }
-        SdlNative.cleanup();
     }
 }

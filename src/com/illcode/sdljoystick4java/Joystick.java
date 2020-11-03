@@ -1,5 +1,10 @@
 package com.illcode.sdljoystick4java;
 
+/**
+ * A wrapper class for the native joystick methods found in {@link SdlNative}.
+ * <p/>
+ * Prior to using this class, you'll need to call {@link SdlNative#initJoysticks()}.
+ */
 public class Joystick
 {
     private long joystickPtr;
@@ -7,11 +12,17 @@ public class Joystick
     private String name;
     private int numAxes;
     private int numButtons;
+    private int numBalls;
+    private int numHats;
 
     private boolean transitionDetectionEnabled;
     private boolean[] currentButtonState, previousButtonState;
 
-
+    /**
+     * Construct a Joystick
+     * @param deviceIdx index of the joystick ({@code 0 <= deviceIdx < }{@link #numJoysticks()} )
+     * @throws SdlException thrown if the native <tt>SDL_JoystickOpen()</tt> function fails
+     */
     public Joystick(int deviceIdx) throws SdlException {
         joystickPtr = SdlNative.joystickOpen(deviceIdx);
         if (joystickPtr == 0)
@@ -19,7 +30,10 @@ public class Joystick
         queryJoystick();
     }
 
-    public Joystick(long joystickPtr) {
+    /**
+     * Construct a Joystick from a native pointer. For internal use.
+     */
+    Joystick(long joystickPtr) {
         this.joystickPtr = joystickPtr;
         queryJoystick();
     }
@@ -29,6 +43,8 @@ public class Joystick
         name = SdlNative.joystickName(joystickPtr);
         numAxes = SdlNative.joystickNumAxes(joystickPtr);
         numButtons = SdlNative.joystickNumButtons(joystickPtr);
+        numBalls = SdlNative.joystickNumBalls(joystickPtr);
+        numHats = SdlNative.joystickNumHats(joystickPtr);
         update(true);
     }
 
@@ -97,6 +113,26 @@ public class Joystick
             return currentButtonState[button];   // no need to call to native
         else
             return SdlNative.joystickGetButton(joystickPtr, button);
+    }
+
+    /**
+     * Get the ball axis change since the last poll. Trackballs can only return relative motion since
+     * the last call to this method.
+     * @param ball the ball index to query; ball indices start at index 0
+     * @param xyDelta filled with the difference in the axis position since the last poll
+     * @return 0 on success or a negative error code on failure
+     */
+    public int getBall(int ball, BallDelta xyDelta) {
+        return SdlNative.joystickGetBall(joystickPtr, ball, xyDelta.deltas);
+    }
+
+    /**
+     * Get the current state of a POV hat on a joystick
+     * @param hat the hat index to get the state from; hat indices start at index 0
+     * @return one of the <tt>SDL_HAT</tt> constants in {@link SdlConstants}
+     */
+    public int getHat(int hat) {
+        return SdlNative.joystickGetHat(joystickPtr, hat);
     }
 
     /**
@@ -223,13 +259,15 @@ public class Joystick
         sb.append("         name = ").append(name).append("\n");
         sb.append("      numAxes = ").append(numAxes).append("\n");
         sb.append("   numButtons = ").append(numButtons).append("\n");
+        sb.append("     numBalls = ").append(numBalls).append("\n");
+        sb.append("      numHats = ").append(numHats).append("\n");
         return sb.toString();
     }
 
     /**
      * A joystick GUI, corresponding to the SDL_JoystickGUID type.
      */
-    public static class GUID
+    public final static class GUID
     {
         public byte[] data;
 
@@ -242,47 +280,24 @@ public class Joystick
         }
     }
 
-    public static void main(String[] args) throws SdlException, InterruptedException {
-        SdlNative.initJoysticks();
-        if (Joystick.numJoysticks() > 0) {
-            System.out.println("GUID of device 0: " + getGUIDString(getGUID(0)));
-            final Joystick joystick = new Joystick(0);
-            final String guidString = getGUIDString(joystick.getGUID());
-            System.out.println("GUID of joystick: " + guidString);
-            System.out.println("  Roundtrip GUID: " + getGUIDString(getGUID(guidString)));
-            joystick.setTransitionDetectionEnabled(true);
-            System.out.println();
-            System.out.println(joystick.toString());
-            if (args.length >= 1) {
-                System.out.println();
-                int n = Integer.parseInt(args[0]);
-                Thread.sleep(200);
-                iterationLoop:
-                for (int i = 0; i < n; i++) {
-                    joystick.update(true);
-                    if (!joystick.isAttached()) {
-                        System.out.println("Joystick disconnected!");
-                        break iterationLoop;
-                    }
-                    for (int button = 0; button < joystick.getNumButtons(); button++) {
-                        System.out.print(joystick.getButton(button) ? "1" : "0");
-                        if (joystick.buttonPressed(button))
-                            System.out.print("P");
-                        else if (joystick.buttonReleased(button))
-                            System.out.print("R");
-                        else
-                            System.out.print(" ");
-                        System.out.print(" ");
-                    }
-                    for (int axis = 0; axis < joystick.getNumAxes(); axis++)
-                        System.out.printf("%+6d ", joystick.getAxis(axis));
-                    System.out.println();
-                    Thread.sleep(500);
-                }
-            }
-            joystick.close();
+    /** A container class for deltas returned by {@link Joystick#getBall} */
+    public final static class BallDelta
+    {
+        private int[] deltas;
+
+        public BallDelta() {
+            deltas = new int[2];
         }
-        SdlNative.cleanup();
+
+        /** Get the delta-x */
+        public int getX() {
+            return deltas[0];
+        }
+
+        /** Get the delta-y */
+        public int getY() {
+            return deltas[1];
+        }
     }
 
 }

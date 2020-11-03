@@ -8,10 +8,12 @@ Set three environment variables to appropriate values:
 * `JDK_HOME_X86` – path to 32-bit JDK home
 * `JDK_HOME_X64` – path to 64-bit JDK home
 
-Then either run `devenv` and open the `sdljoystick4java.sln` solution, or run `build.bat` as so:
+Then either run `devenv` and open the `sdljoystick4java.sln` solution, or, on the command line
 
 ```
-build.bat /build <arch>
+devenv sdljoystick4java.sln /build "Release|<arch>" /Project sdljoystick4java
 ```
 
 where `<arch>` is either `x86` or `x64`.
+
+DLLs will be placed in `out\(Win32|x64)\Release`.

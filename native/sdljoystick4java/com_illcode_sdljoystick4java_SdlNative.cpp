@@ -1,6 +1,7 @@
 #pragma warning( disable : 26812 26451)   // use of regular enums
 
 #include "pch.h"
+
 #include "com_illcode_sdljoystick4java_SdlNative.h"
 
 JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getDirectByteBufferAddress(JNIEnv* env, jclass cls, jobject buffer) {

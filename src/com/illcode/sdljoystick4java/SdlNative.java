@@ -4,9 +4,25 @@ import java.nio.ByteBuffer;
 
 /**
  * Direct mappings for JNI methods.
+ * <p/>
+ * Note that you will need to load the native shared libaries before calling any of the native
+ * methods in this class. Typically you can do this via {@link #loadNative(boolean)}, but if
+ * you have your own system in place, we don't force any conventions on you by putting the
+ * <tt>System.loadLibrary()</tt> calls in a <tt>static {}</tt> block.
  */
 public final class SdlNative
 {
+    /**
+     * Load native shared libraries by calling <tt>System.loadLibrary()</tt>
+     * @param loadSDL if true, we load <tt>SDL2</tt> prior to our JNI DLL (this is necessary if SDL2.dll,
+     *  or the platform equivalent, is not found on the standard shared library search path)
+     */
+    public static void loadNative(boolean loadSDL) {
+        if (loadSDL)
+            System.loadLibrary("SDL2");
+        System.loadLibrary("sdljoystick4java");
+    }
+
     /**
      * Get the native address of a direct byte buffer.
      * @param b buffer
@@ -204,7 +220,7 @@ public final class SdlNative
      * Use this function to load a set of Game Controller mappings from a file, filtered by the current platform
      * @param filename the name of the database you want to load
      * @return Returns the number of mappings added or -1 on error
-     * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB</a> on GitHub
+     * @see <a href="https://github.com/gabomdq/SDL_GameControllerDB">SDL_GameControllerDB on GitHub</a>
      */
     public static native int gameControllerAddMappingsFromFile(String filename);
 
@@ -280,9 +296,4 @@ public final class SdlNative
      * @return Returns <tt>true</tt> for pressed state or <tt>false</tt> for not pressed state or error
      */
     public static native boolean gameControllerGetButton(long gameControllerPtr, int button);
-
-    static {
-        System.loadLibrary("SDL2");
-        System.loadLibrary("sdljoystick4java");
-    }
 }
