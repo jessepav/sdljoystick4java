@@ -213,3 +213,22 @@ JNIEXPORT jshort JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControl
 JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerGetButton(JNIEnv* env, jclass cls, jlong gameControllerPtr, jint button) {
 	return SDL_GameControllerGetButton((SDL_GameController*)(uintptr_t)gameControllerPtr, (SDL_GameControllerButton)button);
 }
+
+// Structures and functions for updateAll()
+
+struct GameControllerState 
+{
+	short axisVals[SDL_CONTROLLER_AXIS_MAX];
+	Uint8 buttonVals[SDL_CONTROLLER_BUTTON_MAX];
+};
+
+JNIEXPORT jintArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getGameControllerStateInfo(JNIEnv *env, jclass cls) {
+	jint infoArray[2];
+	infoArray[0] = sizeof(GameControllerState);
+	infoArray[1] = offsetof(GameControllerState, buttonVals);
+	jintArray iarr = env->NewIntArray(2);
+	if (iarr == NULL)
+		return NULL;
+	env->SetIntArrayRegion(iarr, 0, 2, infoArray);
+	return iarr;
+}

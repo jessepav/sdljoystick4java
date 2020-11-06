@@ -296,4 +296,13 @@ public final class SdlNative
      * @return Returns <tt>true</tt> for pressed state or <tt>false</tt> for not pressed state or error
      */
     public static native boolean gameControllerGetButton(long gameControllerPtr, int button);
+
+    /**
+     * Return an array containing information about the native GameControllerState structure:
+     * <pre>
+     *     index 0 - size in bytes of GameControllerState struct
+     *     index 1 - offset in bytes of the start of the button values array
+     * </pre>
+     */
+    public static native int[] getGameControllerStateInfo();
 }

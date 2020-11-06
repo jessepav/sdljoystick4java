@@ -4,7 +4,7 @@ import com.illcode.sdljoystick4java.*;
 
 public class BasicTests
 {
-    public static void testJoystick(String[] args) throws SdlException, InterruptedException {
+    private static void testJoystick(String[] args) throws SdlException, InterruptedException {
         if (Joystick.numJoysticks() > 0) {
             System.out.println("GUID of device 0: " + Joystick.getGUIDString(Joystick.getGUID(0)));
             final Joystick joystick = new Joystick(0);
@@ -45,7 +45,7 @@ public class BasicTests
         }
     }
 
-    public static void testGameController(String[] args) throws SdlException, InterruptedException {
+    private static void testGameController(String[] args) throws SdlException, InterruptedException {
         if (args.length < 2) {
             System.out.println("Usage: GameController axes|buttons <num iterations>");
             System.exit(0);
@@ -114,6 +114,12 @@ public class BasicTests
         }
     }
 
+    private static void testNativeStructInfo() {
+        int[] info = SdlNative.getGameControllerStateInfo();
+        System.out.println("sizeof(GameControllerState)               = " + info[0]);
+        System.out.println("offsetof(GameControllerState, buttonVals) = " + info[1]);
+    }
+
     public static void main(String[] args) throws SdlException, InterruptedException {
         if (args.length == 0) {
             showHelp();
@@ -133,6 +139,9 @@ public class BasicTests
         case "gamecontroller":
             SdlNative.initGameControllers();
             testGameController(args2);
+            break;
+        case "structinfo":
+            testNativeStructInfo();
             break;
         default:
             showHelp();
