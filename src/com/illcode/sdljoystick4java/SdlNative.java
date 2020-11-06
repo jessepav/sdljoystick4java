@@ -300,8 +300,8 @@ public final class SdlNative
     /**
      * Return an array containing information about the native GameControllerState structure:
      * <pre>
-     *     index 0 - size in bytes of GameControllerState struct
-     *     index 1 - offset in bytes of the start of the button values array
+     *  index 0 - size in bytes of GameControllerState struct
+     *  index 1 - offset in bytes of the start of the button values array
      * </pre>
      */
     public static native int[] getGameControllerStateInfo();
