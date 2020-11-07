@@ -46,18 +46,18 @@ public class BasicTests
     }
 
     private static void testGameController(String[] args) throws SdlException, InterruptedException {
-        if (args.length < 2) {
-            System.out.println("Usage: GameController axes|buttons <num iterations>");
+        if (args.length < 3) {
+            System.out.println("Usage: GameController <deviceIdx> axes|buttons <num iterations>");
             System.exit(0);
         }
         if (Joystick.numJoysticks() > 0) {
             int numMappings = GameController.addMappingsFromFile("resources/gamecontrollerdb.txt");
             if (numMappings > 0)
                 System.out.printf("Loaded %d controller mappings\n\n", numMappings);
-            String cmd = args[0];
-            int n = Integer.parseInt(args[1]);
-            final GameController controller = new GameController(0);
-            controller.setTransitionDetectionEnabled(true);
+            int deviceIdx = Integer.parseInt(args[0]);
+            String cmd = args[1];
+            int n = Integer.parseInt(args[2]);
+            final GameController controller = new GameController(deviceIdx);
             System.out.println("GameController - " + controller.getName());
             Thread.sleep(200);
             switch (cmd) {
@@ -132,28 +132,31 @@ public class BasicTests
         String[] args2 = new String[n];
         System.arraycopy(args, 1, args2, 0, n);
         String lcarg = args[0].toLowerCase();
-        switch (lcarg) {
-        case "joystick":
-            testJoystick(args2);
-            break;
-        case "gamecontroller":
-            SdlNative.initGameControllers();
-            testGameController(args2);
-            break;
-        case "structinfo":
-            testNativeStructInfo();
-            break;
-        default:
-            showHelp();
-            break;
+        try {
+            switch (lcarg) {
+            case "joystick":
+                testJoystick(args2);
+                break;
+            case "gamecontroller":
+                SdlNative.initGameControllers();
+                testGameController(args2);
+                break;
+            case "structinfo":
+                testNativeStructInfo();
+                break;
+            default:
+                showHelp();
+                break;
+            }
+        } finally {
+            SdlNative.cleanup();
         }
-        SdlNative.cleanup();
     }
 
     private static void showHelp() {
         System.out.println(
             "Usage: BasicTests Joystick [num iterations]\n" +
-            "                  GameController axes|buttons <num iterations>"
+            "                  GameController <deviceIdx> axes|buttons <num iterations>"
         );
     }
 }
