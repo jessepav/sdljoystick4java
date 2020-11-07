@@ -216,13 +216,15 @@ JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameContr
 
 // Structures and functions for updateAll()
 
-struct GameControllerState 
+struct _GameControllerState 
 {
 	short axisVals[SDL_CONTROLLER_AXIS_MAX];
 	Uint8 buttonVals[SDL_CONTROLLER_BUTTON_MAX];
 };
 
-JNIEXPORT jintArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getGameControllerStateInfo(JNIEnv *env, jclass cls) {
+typedef struct _GameControllerState GameControllerState;
+
+JNIEXPORT jintArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerGetStateInfo(JNIEnv *env, jclass cls) {
 	jint infoArray[2];
 	infoArray[0] = sizeof(GameControllerState);
 	infoArray[1] = offsetof(GameControllerState, buttonVals);
@@ -231,4 +233,17 @@ JNIEXPORT jintArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getGameC
 		return NULL;
 	env->SetIntArrayRegion(iarr, 0, 2, infoArray);
 	return iarr;
+}
+
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerUpdateState
+(JNIEnv *env, jclass cls, jboolean nativeUpdate, jlong gameControllerPtr, jlong bufferPtr)
+{
+	SDL_GameController* controller = (SDL_GameController*)(uintptr_t)gameControllerPtr;
+	GameControllerState* state = (GameControllerState*)(uintptr_t)bufferPtr;
+	if (nativeUpdate)
+		SDL_JoystickUpdate();
+	for (int axis = 0; axis < SDL_CONTROLLER_AXIS_MAX; axis++)
+		state->axisVals[axis] = SDL_GameControllerGetAxis(controller, (SDL_GameControllerAxis)axis);
+	for (int b = 0; b < SDL_CONTROLLER_BUTTON_MAX; b++)
+		state->buttonVals[b] = SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)b);
 }

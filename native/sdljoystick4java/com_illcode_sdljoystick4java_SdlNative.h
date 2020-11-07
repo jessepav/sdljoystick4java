@@ -313,11 +313,19 @@ JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameContr
 
 /*
  * Class:     com_illcode_sdljoystick4java_SdlNative
- * Method:    getGameControllerStateInfo
+ * Method:    gameControllerGetStateInfo
  * Signature: ()[I
  */
-JNIEXPORT jintArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getGameControllerStateInfo
+JNIEXPORT jintArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerGetStateInfo
   (JNIEnv *, jclass);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    gameControllerUpdateState
+ * Signature: (ZJJ)V
+ */
+JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerUpdateState
+  (JNIEnv *, jclass, jboolean, jlong, jlong);
 
 #ifdef __cplusplus
 }

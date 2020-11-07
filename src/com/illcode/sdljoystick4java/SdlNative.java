@@ -304,5 +304,16 @@ public final class SdlNative
      *  index 1 - offset in bytes of the start of the button values array
      * </pre>
      */
-    public static native int[] getGameControllerStateInfo();
+    public static native int[] gameControllerGetStateInfo();
+
+    /**
+     * Poll all axes and buttons, and write the values into a <tt>struct GameControllerState</tt>.
+     * <p/>
+     * The <tt>GameControllerState</tt> structure should be allocated as a direct ByteBuffer of a size
+     * at least that returned by {@link #gameControllerGetStateInfo() gameControllerGetStateInfo()[0]}.
+     * @param nativeUpdate if true, perform the equivalent of {@link #update()}.
+     * @param gameControllerPtr game controller pointer value
+     * @param bufferPtr pointer to a <tt>struct GameControllerState</tt>.
+     */
+    public static native void gameControllerUpdateState(boolean nativeUpdate, long gameControllerPtr, long bufferPtr);
 }

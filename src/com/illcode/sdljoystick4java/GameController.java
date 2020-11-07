@@ -1,5 +1,7 @@
 package com.illcode.sdljoystick4java;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.file.Path;
 
 /**
@@ -11,8 +13,9 @@ public class GameController
 {
     private long gameControllerPtr;
     private String name;
+    private GameControllerState state;
 
-    private boolean transitionDetectionEnabled;
+    private short[] currentAxisState;
     private boolean[] currentButtonState, previousButtonState;
 
     /**
@@ -27,6 +30,11 @@ public class GameController
         if (gameControllerPtr == 0)
             throw new SdlException();
         name = SdlNative.gameControllerName(gameControllerPtr);
+        state = new GameControllerState();
+        currentAxisState = new short[SdlConstants.SDL_CONTROLLER_AXIS_MAX];
+        currentButtonState = new boolean[SdlConstants.SDL_CONTROLLER_BUTTON_MAX];
+        previousButtonState = new boolean[SdlConstants.SDL_CONTROLLER_BUTTON_MAX];
+
     }
 
     /**
@@ -96,7 +104,7 @@ public class GameController
      *         Triggers, however, range from 0 to 32767 (they never return a negative value)
      */
     public short getAxis(int axis) {
-        return SdlNative.gameControllerGetAxis(gameControllerPtr, axis);
+        return currentAxisState[axis];
     }
 
     /**
@@ -105,29 +113,7 @@ public class GameController
      * @return Returns <tt>true</tt> for pressed state or <tt>false</tt> for not pressed state or error
      */
     public boolean getButton(int button) {
-        if (transitionDetectionEnabled)
-            return currentButtonState[button];   // no need to call to native
-        else
-            return SdlNative.gameControllerGetButton(gameControllerPtr, button);
-    }
-
-    /**
-     * Enable or disable support for button transition events. These are exposed through
-     * the {@link #buttonPressed(int)} and {@link #buttonReleased(int)} methods. The usual
-     * button polling method, {@link #getButton(int)}, reports if the button was pressed
-     * at the time of the last call to {@link #update(boolean)}. The button transition methods,
-     * in comparison, report if the button was pressed (or released) in the most recent
-     * call to <tt>update()</tt>, and <em>not</em> pressed (or released) at the time of
-     * the previous <tt>update()</tt>.
-     *
-     * @param transitionDetectionEnabled transition detection state
-     */
-    public void setTransitionDetectionEnabled(boolean transitionDetectionEnabled) {
-        this.transitionDetectionEnabled = transitionDetectionEnabled;
-        if (transitionDetectionEnabled && currentButtonState == null) {
-            currentButtonState = new boolean[SdlConstants.SDL_CONTROLLER_BUTTON_MAX];
-            previousButtonState = new boolean[SdlConstants.SDL_CONTROLLER_BUTTON_MAX];
-        }
+        return currentButtonState[button];   // no need to call to native
     }
 
     /**
@@ -135,10 +121,7 @@ public class GameController
      * @param button the button index to get the state from; indices start at index 0
      */
     public boolean buttonPressed(int button) {
-        if (transitionDetectionEnabled)
-            return currentButtonState[button] && !previousButtonState[button];
-        else
-            return false;
+        return currentButtonState[button] && !previousButtonState[button];
     }
 
     /**
@@ -146,10 +129,7 @@ public class GameController
      * @param button the button index to get the state from; indices start at index 0
      */
     public boolean buttonReleased(int button) {
-        if (transitionDetectionEnabled)
-            return !currentButtonState[button] && previousButtonState[button];
-        else
-            return false;
+        return !currentButtonState[button] && previousButtonState[button];
     }
 
     /**
@@ -159,12 +139,49 @@ public class GameController
      * @param nativeUpdate if true, update native state
      */
     public void update(boolean nativeUpdate) {
-        if (nativeUpdate)
-            SdlNative.update();
-        if (transitionDetectionEnabled) {
-            System.arraycopy(currentButtonState, 0, previousButtonState, 0, SdlConstants.SDL_CONTROLLER_BUTTON_MAX);
+        System.arraycopy(currentButtonState, 0, previousButtonState, 0, SdlConstants.SDL_CONTROLLER_BUTTON_MAX);
+        SdlNative.gameControllerUpdateState(nativeUpdate, gameControllerPtr, state.bufPtr);
+        state.getAllAxes(currentAxisState);
+        state.getAllButtons(currentButtonState);
+    }
+
+    private static final class GameControllerState
+    {
+        private static int structSize;
+        private static int buttonValsOffset;
+
+        static {
+            int[] info = SdlNative.gameControllerGetStateInfo();
+            structSize = info[0];
+            buttonValsOffset = info[1];
+        }
+
+        private ByteBuffer buf;
+        private long bufPtr;
+
+        private GameControllerState() {
+            buf = ByteBuffer.allocateDirect(structSize);
+            buf.order(ByteOrder.nativeOrder());
+            bufPtr = SdlNative.getDirectByteBufferAddress(buf);
+        }
+
+        private short getAxis(int axis) {
+            return buf.getShort(axis * 2);
+        }
+
+        private boolean getButton(int button) {
+            return buf.get(buttonValsOffset + button) == 1;
+        }
+
+        private void getAllAxes(short[] axes) {
+            for (int axis = 0; axis < SdlConstants.SDL_CONTROLLER_AXIS_MAX; axis++)
+                axes[axis] = buf.getShort(axis * 2);
+        }
+
+        private void getAllButtons(boolean[] buttons) {
+            int offset = buttonValsOffset;
             for (int b = 0; b < SdlConstants.SDL_CONTROLLER_BUTTON_MAX; b++)
-                currentButtonState[b] = SdlNative.gameControllerGetButton(gameControllerPtr, b);
+                buttons[b] = buf.get(offset++) == 1;
         }
     }
 }
