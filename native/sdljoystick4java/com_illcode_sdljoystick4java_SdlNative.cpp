@@ -214,7 +214,7 @@ JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameContr
 	return SDL_GameControllerGetButton((SDL_GameController*)(uintptr_t)gameControllerPtr, (SDL_GameControllerButton)button);
 }
 
-// Structures and functions for updateAll()
+// Structures and functions for gameControllerUpdateState()
 
 struct _GameControllerState 
 {

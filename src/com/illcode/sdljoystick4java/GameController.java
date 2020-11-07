@@ -8,6 +8,11 @@ import java.nio.file.Path;
  * A wrapper class for the native GameController methods found in {@link SdlNative}.
  * <p/>
  * Prior to using this class, you'll need to call {@link SdlNative#initGameControllers()}.
+ * <p/>
+ * This class is designed to minimize JNI overhead by requiring only 1 native call per frame. The {@link
+ * #update(boolean)} method calls a native method to fill a buffer with the values of all the axes and
+ * buttons, and subsequent calls to {@link #getAxis(int)} and {@link #getButton(int)} simply return values
+ * from that buffer.
  */
 public class GameController
 {
@@ -145,6 +150,7 @@ public class GameController
         state.getAllButtons(currentButtonState);
     }
 
+    /** A wrapper for the <tt>GameControllerState</tt> struct as found in <tt>com_illcode_sdljoystick4java_SdlNative.cpp</tt>*/
     private static final class GameControllerState
     {
         private static int structSize;
