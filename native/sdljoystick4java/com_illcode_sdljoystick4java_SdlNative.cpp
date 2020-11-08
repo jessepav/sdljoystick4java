@@ -216,13 +216,11 @@ JNIEXPORT jboolean JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameContr
 
 // Structures and functions for gameControllerUpdateState()
 
-struct _GameControllerState 
+struct GameControllerState 
 {
 	short axisVals[SDL_CONTROLLER_AXIS_MAX];
 	Uint8 buttonVals[SDL_CONTROLLER_BUTTON_MAX];
 };
-
-typedef struct _GameControllerState GameControllerState;
 
 JNIEXPORT jintArray JNICALL Java_com_illcode_sdljoystick4java_SdlNative_gameControllerGetStateInfo(JNIEnv *env, jclass cls) {
 	jint infoArray[2];
