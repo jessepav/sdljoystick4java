@@ -89,7 +89,7 @@ you can do this by passing `true` to one of the above `update()` methods, or cal
 ### Windows
 
 See [BUILDING](https://github.com/jessepav/sdljoystick4java/blob/master/native/BUILDING.md#windows)
-for build instructions using Visual Studio (I used 2019).
+for build instructions using Visual Studio 2017 or 2019.
 
 ## Other Platforms
 
