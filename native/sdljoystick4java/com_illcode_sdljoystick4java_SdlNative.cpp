@@ -11,7 +11,6 @@ JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getDirectByt
 JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_SdlNative_initJoysticks(JNIEnv* env, jclass cls) {
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_JoystickEventState(SDL_IGNORE);
-
 }
 
 JNIEXPORT void JNICALL Java_com_illcode_sdljoystick4java_SdlNative_initGameControllers(JNIEnv* env, jclass cls) {
