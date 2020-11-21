@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     com_illcode_sdljoystick4java_SdlNative
+ * Method:    getPointerSize
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getPointerSize
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_illcode_sdljoystick4java_SdlNative
  * Method:    getDirectByteBufferAddress
  * Signature: (Ljava/nio/ByteBuffer;)J
  */

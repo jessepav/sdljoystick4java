@@ -115,6 +115,8 @@ public class BasicTests
     }
 
     private static void testNativeStructInfo() {
+        int pointerSize = SdlNative.getPointerSize();
+        System.out.println("Pointer size (in bytes)                   = " + pointerSize);
         int[] info = SdlNative.gameControllerGetStateInfo();
         System.out.println("sizeof(GameControllerState)               = " + info[0]);
         System.out.println("offsetof(GameControllerState, buttonVals) = " + info[1]);

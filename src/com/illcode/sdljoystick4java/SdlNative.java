@@ -24,6 +24,11 @@ public final class SdlNative
     }
 
     /**
+     * Return the size of a pointer, in bytes.
+     */
+    public static native int getPointerSize();
+
+    /**
      * Get the native address of a direct byte buffer.
      * @param b buffer
      * @return address of buffer

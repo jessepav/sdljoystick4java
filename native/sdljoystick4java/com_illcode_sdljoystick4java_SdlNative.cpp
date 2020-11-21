@@ -4,6 +4,10 @@
 
 #include "com_illcode_sdljoystick4java_SdlNative.h"
 
+JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getPointerSize(JNIEnv *env, jclass cls) {
+	return (jint)sizeof(void *);
+}
+
 JNIEXPORT jlong JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getDirectByteBufferAddress(JNIEnv* env, jclass cls, jobject buffer) {
 	return (jlong)(uintptr_t)env->GetDirectBufferAddress(buffer);
 }
