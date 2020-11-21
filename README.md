@@ -18,8 +18,13 @@ which is used with the SDL event loop), and the "user-facing" functions of the
     SDL_GameControllerGetAxis
     SDL_GameControllerGetButton
 
+When using the [GameController] class, the library uses a JNI path that makes only one
+native call to poll the state of all axes and buttons, moving the information back to Java
+in a direct ByteBuffer.
+
 [`SDL_Joystick` API]: https://wiki.libsdl.org/CategoryJoystick
 [`SDL_GameController` API]: https://wiki.libsdl.org/CategoryGameController
+[GameController]: https://jessepav.github.io/sdljoystick4java/javadoc/com/illcode/sdljoystick4java/GameController.html
 
 ## Why?
 
@@ -58,7 +63,7 @@ If you're running Windows, you can run either [`test32.bat`] or [`test64.bat`] (
 your system. Those batch files also show how to set `java.library.path` from the command-line.
 
 [releases]: https://github.com/jessepav/sdljoystick4java/releases
-[`SdlNative.loadNative()`]: https://github.com/jessepav/sdljoystick4java/blob/master/src/com/illcode/sdljoystick4java/SdlNative.java#L15
+[`SdlNative.loadNative()`]: https://jessepav.github.io/sdljoystick4java/javadoc/com/illcode/sdljoystick4java/SdlNative.html#loadNative(boolean)
 [`test32.bat`]: https://github.com/jessepav/sdljoystick4java/blob/master/dist/test32.bat
 [`test64.bat`]: https://github.com/jessepav/sdljoystick4java/blob/master/dist/test64.bat
 
