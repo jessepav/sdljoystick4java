@@ -1,6 +1,6 @@
 # Building sdljoystick4java JNI Natives
 
-## Windows
+## Windows (Method 1)
 
 1. Set three environment variables to appropriate values:
 
@@ -24,3 +24,13 @@
    where `<arch>` is either `x86` or `x64`.
    
    DLLs will be placed in `native\sdljoystick4java\out\(Win32|x64)\Release`.
+
+
+## Windows (Method 2)
+
+1. In the `antbuild` directory, copy `sample-setvars.bat` to `setvars.bat` and edit appropriately.
+
+2. Run the Visual Studio command prompt for the architecture you want to build
+   (`vcvars32.bat` or `vcvars64.bat`).
+
+3. Run `build-x86.bat` or `build-x64.bat` to build the DLLs in `out\x86|x64`.
