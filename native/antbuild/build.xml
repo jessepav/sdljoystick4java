@@ -47,7 +47,7 @@
       <property name="linker.args.x86" value="/MACHINE:X86 /SAFESEH"/>
       <property name="linker.args.x64" value="/MACHINE:X64"/>
       
-      <fileset id="source.files" dir="${basedir}">
+      <fileset id="source.files" dir="src">
         <include name="*.cpp"/>
       </fileset>
                 
