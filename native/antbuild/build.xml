@@ -26,6 +26,9 @@
       <property name="jdk-home.dir" location="${jdk-home.x64.dir}" if:set="is-x64"/>
       <echo>Using JDK_HOME: ${jdk-home.dir}</echo>
       
+      <property name="sdl-include.dir" location="${sdl.dir}/include"/>
+      <property name="sdl-lib.dir" location="${sdl.dir}/lib"/>
+      
       <property name="build.dir" location="build/${platform}"/>
       <property name="out.dir" location="out/${platform}"/>
       
@@ -35,11 +38,11 @@
       <property name="link" value="link.exe"/>
       
       <property name="include-dir.args" 
-                value='/I"${jdk-home.dir}\include" /I"${jdk-home.dir}\include\win32" /I"${sdl.dir}\include"'/>
+                value='/I"${jdk-home.dir}\include" /I"${jdk-home.dir}\include\win32" /I"${sdl-include.dir}"'/>
   
       <property name="compiler.args" value='/c /W3 /WX- /diagnostics:classic /sdl- /O2 /Oi /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D _WINDLL /D _UNICODE /D UNICODE /EHsc /MD /Gy /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++14 /Fo"${build.dir}\\" /Gd /TP /analyze-'/>
       
-      <property name="linker.args" value='/out:"${out.dir}\${libname}.dll" /INCREMENTAL:NO "${sdl.dir}\lib\${platform}\SDL2.LIB" KERNEL32.LIB USER32.LIB GDI32.LIB WINSPOOL.LIB COMDLG32.LIB ADVAPI32.LIB SHELL32.LIB OLE32.LIB OLEAUT32.LIB UUID.LIB ODBC32.LIB ODBCCP32.LIB /MANIFEST /MANIFESTUAC:NO /manifest:embed /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"${out.dir}\${libname}.lib" /DLL'/>
+      <property name="linker.args" value='/out:"${out.dir}\${libname}.dll" /INCREMENTAL:NO "${sdl-lib.dir}\${platform}\SDL2.LIB" KERNEL32.LIB USER32.LIB GDI32.LIB WINSPOOL.LIB COMDLG32.LIB ADVAPI32.LIB SHELL32.LIB OLE32.LIB OLEAUT32.LIB UUID.LIB ODBC32.LIB ODBCCP32.LIB /MANIFEST /MANIFESTUAC:NO /manifest:embed /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"${out.dir}\${libname}.lib" /DLL'/>
       
       <property name="linker.args.x86" value="/MACHINE:X86 /SAFESEH"/>
       <property name="linker.args.x64" value="/MACHINE:X64"/>
