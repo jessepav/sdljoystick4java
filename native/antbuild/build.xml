@@ -34,18 +34,38 @@
       
       <property name="libname" value="sdljoystick4java"/> <!-- Used for outfile files -->
       
-      <property name="cl" value="cl.exe"/>
+      <property name="cc" value="cl.exe"/>
       <property name="link" value="link.exe"/>
       
-      <property name="include-dir.args" 
+      <property name="compiler.include.args" 
                 value='/I"${jdk-home.dir}\include" /I"${jdk-home.dir}\include\win32" /I"${sdl-include.dir}"'/>
-  
-      <property name="compiler.args" value='/c /W3 /WX- /diagnostics:classic /sdl- /O2 /Oi /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D _WINDLL /D _UNICODE /D UNICODE /EHsc /MD /Gy /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++14 /Fo"${build.dir}\\" /Gd /TP /analyze-'/>
+      <property name="compiler.misc.args" 
+                value='/c /TP /std:c++14 /permissive- /W3 /WX- /diagnostics:classic /sdl- /analyze-'/>
+      <property name="compiler.defines.args" 
+                value='/D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D _WINDLL /D _UNICODE /D UNICODE'/>
+      <property name="compiler.codegen.args" value='/EHsc /Gy /Gd /fp:precise'/>
+      <property name="compiler.optimization.args" value='/O2 /Oi /Oy-'/>
+      <property name="compiler.linking.args" value='/MD'/>
+      <property name="compiler.language.args" value='/Zc:wchar_t /Zc:forScope /Zc:inline'/>
+      <property name="compiler.output.args" value='/Fo"${build.dir}\\"'/>
       
-      <property name="linker.args" value='/out:"${out.dir}\${libname}.dll" /INCREMENTAL:NO "${sdl-lib.dir}\${platform}\SDL2.LIB" KERNEL32.LIB USER32.LIB GDI32.LIB WINSPOOL.LIB COMDLG32.LIB ADVAPI32.LIB SHELL32.LIB OLE32.LIB OLEAUT32.LIB UUID.LIB ODBC32.LIB ODBCCP32.LIB /MANIFEST /MANIFESTUAC:NO /manifest:embed /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"${out.dir}\${libname}.lib" /DLL'/>
+      <property name="compiler.args" value=
+          '${compiler.include.args} ${compiler.misc.args} ${compiler.defines.args} ${compiler.codegen.args} ${compiler.optimization.args} ${compiler.linking.args} ${compiler.language.args} ${compiler.output.args}'/>
       
-      <property name="linker.args.x86" value="/MACHINE:X86 /SAFESEH"/>
-      <property name="linker.args.x64" value="/MACHINE:X64"/>
+      <property name="linker.output.args" value=
+          '/DLL /out:"${out.dir}\${libname}.dll" /IMPLIB:"${out.dir}\${libname}.lib"'/>
+      <property name="linker.misc.args"  value=
+          '/INCREMENTAL:NO /MANIFEST /MANIFESTUAC:NO /manifest:embed /SUBSYSTEM:WINDOWS /TLBID:1'/>
+      <property name="linker.optimization.args" value='/OPT:REF /OPT:ICF'/>
+      <property name="linker.safety.args" value='/DYNAMICBASE /NXCOMPAT'/>
+      <property name="linker.stdlib.args" value=
+          'KERNEL32.LIB USER32.LIB GDI32.LIB WINSPOOL.LIB COMDLG32.LIB ADVAPI32.LIB SHELL32.LIB OLE32.LIB OLEAUT32.LIB UUID.LIB ODBC32.LIB ODBCCP32.LIB'/>
+      <property name="linker.lib.args" value='"${sdl-lib.dir}\${platform}\SDL2.LIB"'/>
+      <property name="linker.machine.args" value='/MACHINE:X86 /SAFESEH' if:set="is-x86"/>
+      <property name="linker.machine.args" value='/MACHINE:X64' if:set="is-x64"/>
+
+      <property name="linker.args" value=
+          "${linker.output.args} ${linker.misc.args} ${linker.optimization.args} ${linker.safety.args} ${linker.stdlib.args} ${linker.lib.args} ${linker.machine.args} ${linker.machine.args}"/>
       
       <fileset id="source.files" dir="src">
         <include name="*.cpp"/>
@@ -56,10 +76,9 @@
     </target>
     
     <target name="compile" depends="init" description="Compile sources">
-      <apply executable="${cl}" dest="${build.dir}" skipemptyfilesets="true" verbose="true">
+      <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true">
         <fileset refid="source.files"/>
         <mapper type="glob" from="*.cpp" to="*.obj"/>
-        <arg line="${include-dir.args}"/>
         <arg line="${compiler.args}"/>
         <srcfile/>
       </apply>
@@ -70,8 +89,6 @@
         <fileset dir="${build.dir}" includes="*.obj"/>
         <mapper type="merge" to="${libname}.dll"/>
         <arg line="${linker.args}"/>
-        <arg line="${linker.args.x86}" if:set="is-x86"/>
-        <arg line="${linker.args.x64}" if:set="is-x64"/>
         <srcfile/>
       </apply>
     </target>
