@@ -34,7 +34,7 @@
       
       <property name="libname" value="sdljoystick4java"/> <!-- Used for outfile files -->
 
-      <property name="pch.file" location="${build.dir}/${libname}.pch"/>
+      <property name="pch.file" location="${build.dir}/${libname}.pch" if:set="pch.source.file"/>
       
       <property name="cc" value="cl.exe"/>
       <property name="link" value="link.exe"/>
@@ -72,20 +72,20 @@
       <property name="linker.args" value=
           "${linker.output.args} ${linker.misc.args} ${linker.optimization.args} ${linker.safety.args} ${linker.stdlib.args} ${linker.lib.args} ${linker.machine.args} ${linker.machine.args}"/>
       
-      <fileset id="source.files" dir="src">
+      <fileset id="source.files" dir="${src.dir}">
         <include name="*.cpp"/>
-        <exclude name="pch.cpp"/>
+        <exclude name="${pch.source.file}" if:set="pch.source.file"/>
       </fileset>
       
-      <filelist id="pch-source.file" dir="src" files="pch.cpp"/>
+      <filelist id="pch-source.filelist" dir="${src.dir}" files="${pch.source.file}" if:set="pch.source.file"/>
                 
       <mkdir dir="${build.dir}"/>
       <mkdir dir="${out.dir}"/>
     </target>
     
-    <target name="gen-pch" depends="init" description="Generate PCH" if="use-pch">
+    <target name="gen-pch" depends="init" description="Generate PCH" if="pch.source.file">
       <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true">
-        <filelist refid="pch-source.file"/>
+        <filelist refid="pch-source.filelist"/>
         <mapper type="merge" to="${pch.file}"/>
         <arg line="${compiler.args}"/>
         <arg line="${compiler.gen-pch.args}"/>
@@ -98,7 +98,7 @@
         <fileset refid="source.files"/>
         <mapper type="glob" from="*.cpp" to="*.obj"/>
         <arg line="${compiler.args}"/>
-        <arg line="${compiler.use-pch.args}" if:set="use-pch"/>
+        <arg line="${compiler.use-pch.args}" if:set="pch.source.file"/>
         <srcfile/>
       </apply>
     </target>
