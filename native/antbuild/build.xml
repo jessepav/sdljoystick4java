@@ -78,13 +78,15 @@
       </fileset>
       
       <filelist id="pch-source.filelist" dir="${src.dir}" files="${pch.source.file}" if:set="pch.source.file"/>
+      
+      <property name="force.rebuild" value="false"/>
                 
       <mkdir dir="${build.dir}"/>
       <mkdir dir="${out.dir}"/>
     </target>
     
     <target name="gen-pch" depends="init" description="Generate PCH" if="pch.source.file">
-      <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true">
+      <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true" force="${force.rebuild}">
         <filelist refid="pch-source.filelist"/>
         <mapper type="merge" to="${pch.file}"/>
         <arg line="${compiler.args}"/>
@@ -94,7 +96,7 @@
     </target>
     
     <target name="compile" depends="gen-pch" description="Compile sources">
-      <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true">
+      <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true" force="${force.rebuild}">
         <fileset refid="source.files"/>
         <mapper type="glob" from="*.cpp" to="*.obj"/>
         <arg line="${compiler.args}"/>
@@ -104,7 +106,8 @@
     </target>
 
     <target name="dll" depends="compile" description="Build DLL">
-      <apply executable="${link}" dest="${out.dir}" skipemptyfilesets="true" verbose="true" parallel="true">
+      <apply executable="${link}" dest="${out.dir}" skipemptyfilesets="true" verbose="true"
+             parallel="true" force="${force.rebuild}">
         <fileset dir="${build.dir}">
           <include name="*.obj"/>
         </fileset>
