@@ -1,15 +1,6 @@
 #pragma warning( disable : 26812 26451)   // use of regular enums
 
-#ifdef WIN32
-  #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-  #include <windows.h>
-#endif
-
-#include <stdint.h>
-#include <string.h>
-
-#define SDL_MAIN_HANDLED
-#include <SDL.h>
+#include "pch.h"
 
 #include "com_illcode_sdljoystick4java_SdlNative.h"
 
