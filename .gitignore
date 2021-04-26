@@ -11,11 +11,4 @@
 
 /build.properties
 
-**/.vs
-/native/sdljoystick4java/build
-/native/sdljoystick4java/out
-
-*.vcxproj.user
-*.vcxproj.filters
-
 /local
