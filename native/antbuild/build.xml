@@ -6,7 +6,7 @@
 
     <target name="init">
       <property name="platform" value="${env.Platform}"/>
-      <fail message="Invalid platform (only x86 and x64 supported)">
+      <fail message="Platform Error:${line.separator}* Invalid platform (only x86 and x64 supported).${line.separator}* Run the appropriate vcvars{32,64}.bat before invoking Ant.">
         <condition>
           <and>
             <not><equals arg1="${platform}" arg2="x86"/></not>
