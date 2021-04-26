@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\src\com_illcode_sdljoystick4java_SdlNative.cpp" />
     <ClCompile Include="..\src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -31,6 +28,9 @@
   <ItemGroup>
     <ClInclude Include="..\src\com_illcode_sdljoystick4java_SdlNative.h" />
     <ClInclude Include="..\src\pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
