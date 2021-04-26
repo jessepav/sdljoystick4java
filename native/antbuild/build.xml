@@ -33,6 +33,8 @@
       <property name="out.dir" location="out/${platform}"/>
       
       <property name="libname" value="sdljoystick4java"/> <!-- Used for outfile files -->
+
+      <property name="pch.file" location="${build.dir}/${libname}.pch"/>
       
       <property name="cc" value="cl.exe"/>
       <property name="link" value="link.exe"/>
@@ -48,6 +50,9 @@
       <property name="compiler.linking.args" value='/MD'/>
       <property name="compiler.language.args" value='/Zc:wchar_t /Zc:forScope /Zc:inline'/>
       <property name="compiler.output.args" value='/Fo"${build.dir}\\"'/>
+      
+      <property name="compiler.gen-pch.args" value='/Yc"pch.h" /Fp"${pch.file}"'/>
+      <property name="compiler.use-pch.args" value='/Yu"pch.h" /Fp"${pch.file}"'/>
       
       <property name="compiler.args" value=
           '${compiler.include.args} ${compiler.misc.args} ${compiler.defines.args} ${compiler.codegen.args} ${compiler.optimization.args} ${compiler.linking.args} ${compiler.language.args} ${compiler.output.args}'/>
@@ -69,24 +74,40 @@
       
       <fileset id="source.files" dir="src">
         <include name="*.cpp"/>
+        <exclude name="pch.cpp"/>
       </fileset>
+      
+      <filelist id="pch-source.file" dir="src" files="pch.cpp"/>
                 
       <mkdir dir="${build.dir}"/>
       <mkdir dir="${out.dir}"/>
     </target>
     
-    <target name="compile" depends="init" description="Compile sources">
+    <target name="gen-pch" depends="init" description="Generate PCH" if="use-pch">
+      <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true">
+        <filelist refid="pch-source.file"/>
+        <mapper type="merge" to="${pch.file}"/>
+        <arg line="${compiler.args}"/>
+        <arg line="${compiler.gen-pch.args}"/>
+        <srcfile/>
+      </apply>
+    </target>
+    
+    <target name="compile" depends="gen-pch" description="Compile sources">
       <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true">
         <fileset refid="source.files"/>
         <mapper type="glob" from="*.cpp" to="*.obj"/>
         <arg line="${compiler.args}"/>
+        <arg line="${compiler.use-pch.args}" if:set="use-pch"/>
         <srcfile/>
       </apply>
     </target>
 
     <target name="dll" depends="compile" description="Build DLL">
       <apply executable="${link}" dest="${out.dir}" skipemptyfilesets="true" verbose="true" parallel="true">
-        <fileset dir="${build.dir}" includes="*.obj"/>
+        <fileset dir="${build.dir}">
+          <include name="*.obj"/>
+        </fileset>
         <mapper type="merge" to="${libname}.dll"/>
         <arg line="${linker.args}"/>
         <srcfile/>
