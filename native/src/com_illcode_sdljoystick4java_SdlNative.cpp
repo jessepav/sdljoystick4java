@@ -1,8 +1,7 @@
-#pragma warning( disable : 26812 26451)   // use of regular enums
-
+#pragma warning(push, 0)
 #include "pch.h"
-
 #include "com_illcode_sdljoystick4java_SdlNative.h"
+#pragma warning(pop)
 
 JNIEXPORT jint JNICALL Java_com_illcode_sdljoystick4java_SdlNative_getPointerSize
 (JNIEnv *env, jclass cls) {

@@ -35,48 +35,19 @@
       <property name="libname" value="sdljoystick4java"/> <!-- Used for outfile files -->
 
       <property name="pch.file" location="${build.dir}/${libname}.pch" if:set="pch.source.file"/>
-      
-      <property name="cc" value="cl.exe"/>
-      <property name="link" value="link.exe"/>
-      
-      <property name="compiler.include.args" 
-                value='/I"${jdk-home.dir}\include" /I"${jdk-home.dir}\include\win32" /I"${sdl-include.dir}"'/>
-      <property name="compiler.misc.args" 
-                value='/c /TP /std:c++14 /permissive- /W3 /WX- /diagnostics:classic /sdl- /analyze-'/>
-      <property name="compiler.defines.args" 
-                value='/D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D _WINDLL /D _UNICODE /D UNICODE'/>
-      <property name="compiler.codegen.args" value='/EHsc /Gy /Gd /fp:precise'/>
-      <property name="compiler.optimization.args" value='/O2 /Oi /Oy-'/>
-      <property name="compiler.linking.args" value='/MD'/>
-      <property name="compiler.language.args" value='/Zc:wchar_t /Zc:forScope /Zc:inline'/>
-      <property name="compiler.output.args" value='/Fo"${build.dir}\\"'/>
-      
-      <property name="compiler.gen-pch.args" value='/Yc"pch.h" /Fp"${pch.file}"'/>
-      <property name="compiler.use-pch.args" value='/Yu"pch.h" /Fp"${pch.file}"'/>
-      
-      <property name="compiler.args" value=
-          '${compiler.include.args} ${compiler.misc.args} ${compiler.defines.args} ${compiler.codegen.args} ${compiler.optimization.args} ${compiler.linking.args} ${compiler.language.args} ${compiler.output.args}'/>
-      
-      <property name="linker.output.args" value=
-          '/DLL /out:"${out.dir}\${libname}.dll" /IMPLIB:"${out.dir}\${libname}.lib"'/>
-      <property name="linker.misc.args"  value=
-          '/INCREMENTAL:NO /MANIFEST /MANIFESTUAC:NO /manifest:embed /SUBSYSTEM:WINDOWS /TLBID:1'/>
-      <property name="linker.optimization.args" value='/OPT:REF /OPT:ICF'/>
-      <property name="linker.safety.args" value='/DYNAMICBASE /NXCOMPAT'/>
-      <property name="linker.stdlib.args" value=
-          'KERNEL32.LIB USER32.LIB GDI32.LIB WINSPOOL.LIB COMDLG32.LIB ADVAPI32.LIB SHELL32.LIB OLE32.LIB OLEAUT32.LIB UUID.LIB ODBC32.LIB ODBCCP32.LIB'/>
-      <property name="linker.lib.args" value='"${sdl-lib.dir}\${platform}\SDL2.LIB"'/>
-      <property name="linker.machine.args" value='/MACHINE:X86 /SAFESEH' if:set="is-x86"/>
-      <property name="linker.machine.args" value='/MACHINE:X64' if:set="is-x64"/>
 
-      <property name="linker.args" value=
-          "${linker.output.args} ${linker.misc.args} ${linker.optimization.args} ${linker.safety.args} ${linker.stdlib.args} ${linker.lib.args} ${linker.machine.args} ${linker.machine.args}"/>
+      <!-- Load up compiler and linker properties, expanding properties within. -->      
+      <property file="toolchain-windows.properties"/>
+
+      <property name="compiler.machine.args" value='${compiler.args.x86}' if:set="is-x86"/>
+      <property name="compiler.machine.args" value='${compiler.args.x64}' if:set="is-x64"/>
+      <property name="compiler.args.all" value="${compiler.args} ${compiler.machine.args}"/>
+
+      <property name="linker.machine.args" value='${linker.args.x86}' if:set="is-x86"/>
+      <property name="linker.machine.args" value='${linker.args.x64}' if:set="is-x64"/>
+      <property name="linker.args.all" value="${linker.args} ${linker.machine.args}"/>
       
-      <fileset id="source.files" dir="${src.dir}">
-        <include name="*.cpp"/>
-        <exclude name="${pch.source.file}" if:set="pch.source.file"/>
-      </fileset>
-      
+      <filelist id="source.files" dir="${src.dir}" files="${src.files}"/>
       <filelist id="pch-source.filelist" dir="${src.dir}" files="${pch.source.file}" if:set="pch.source.file"/>
       
       <property name="force.rebuild" value="false"/>
@@ -89,17 +60,18 @@
       <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true" force="${force.rebuild}">
         <filelist refid="pch-source.filelist"/>
         <mapper type="merge" to="${pch.file}"/>
-        <arg line="${compiler.args}"/>
+        <arg line="${compiler.args.all}"/>
         <arg line="${compiler.gen-pch.args}"/>
         <srcfile/>
       </apply>
     </target>
     
     <target name="compile" depends="gen-pch" description="Compile sources">
-      <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" verbose="true" force="${force.rebuild}">
-        <fileset refid="source.files"/>
+      <apply executable="${cc}" dest="${build.dir}" skipemptyfilesets="true" force="${force.rebuild}"
+             parallel="true" verbose="true" >
+        <filelist refid="source.files"/>
         <mapper type="glob" from="*.cpp" to="*.obj"/>
-        <arg line="${compiler.args}"/>
+        <arg line="${compiler.args.all}"/>
         <arg line="${compiler.use-pch.args}" if:set="pch.source.file"/>
         <srcfile/>
       </apply>
@@ -112,7 +84,7 @@
           <include name="*.obj"/>
         </fileset>
         <mapper type="merge" to="${libname}.dll"/>
-        <arg line="${linker.args}"/>
+        <arg line="${linker.args.all}"/>
         <srcfile/>
       </apply>
     </target>
@@ -124,4 +96,4 @@
 
 </project>
 
-<!-- :wrap=soft:maxLineLen=110: -->
+<!-- :wrap=none:maxLineLen=110: -->
