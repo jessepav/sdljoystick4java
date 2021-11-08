@@ -6,13 +6,16 @@
 
     <target name="init">
       <property name="platform" value="${env.Platform}"/>
-      <fail message="Platform Error:${line.separator}* Invalid platform (only x86 and x64 supported).${line.separator}* Run the appropriate vcvars{32,64}.bat before invoking Ant.">
+      <fail>
         <condition>
           <and>
             <not><equals arg1="${platform}" arg2="x86"/></not>
             <not><equals arg1="${platform}" arg2="x64"/></not>
           </and>
         </condition>
+Platform Error:
+  * Invalid platform (only x86 and x64 supported).
+  * Run the appropriate vcvars{32,64}.bat before invoking Ant.
       </fail>
       <echo>Building for platform: ${platform}</echo>
       <condition property="is-x86">
@@ -37,7 +40,10 @@
       <property name="pch.file" location="${build.dir}/${libname}.pch" if:set="pch.source.file"/>
 
       <!-- Load up compiler and linker properties, expanding properties within. -->      
-      <property file="toolchain-windows.properties"/>
+      <property file="toolchain-${toolchain}.properties"/>
+      <fail unless="cc">
+        "toolchain-${toolchain}.properties" is not a valid toolchain properties file
+      </fail>
 
       <property name="compiler.machine.args" value='${compiler.args.x86}' if:set="is-x86"/>
       <property name="compiler.machine.args" value='${compiler.args.x64}' if:set="is-x64"/>
@@ -96,4 +102,4 @@
 
 </project>
 
-<!-- :wrap=none:maxLineLen=110: -->
+<!-- :wrap=none:maxLineLen=120: -->
