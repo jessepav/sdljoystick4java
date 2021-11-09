@@ -1,5 +1,6 @@
-#pragma warning(push, 0)
 #include "pch.h"
+
+#pragma warning(push, 0)
 #include "com_illcode_sdljoystick4java_SdlNative.h"
 #pragma warning(pop)
 
