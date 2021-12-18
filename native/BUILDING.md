@@ -1,36 +1,44 @@
 # Building sdljoystick4java JNI Natives
 
-## Windows (Method 1)
+You can build the JNI native shared libraries using my janky first-ever CMake build file, with these
+caveats:
 
-1. Set three environment variables to appropriate values:
+1. The `CMakeLists.txt` only supports single-configuration generators (Makefiles or Ninja). Remember
+   to add the `CMAKE_BUILD_TYPE` definition on the command-line.
 
-   * `SDL_DIR` – path to SDL2 development libraries (i.e. where `lib` and `include` can be found)
-   * `JDK_HOME_X86` – path to 32-bit JDK home
-   * `JDK_HOME_X64` – path to 64-bit JDK home
+2. There's currently no support for non-Windows platform (just because `CMakeLists.txt` doesn't yet
+   include the proper include directories and link libraries -- it should be easy to add though).
 
-2. Select appropriate solution:
+3. You'll need to pass two cache variables in the configuration step:
 
-   For Visual Studio 2019, use the `sdljoystick4java.sln` solution in the `native\sdljoystick4java`
-   directory.
-
-   For Visual Studio 2017, use the `sdljoystick4java.sln` solution in the
-   `native\sdljoystick4java\vs2017` directory.
-
-3. Then either run `devenv` and open the appropriate `sdljoystick4java.sln` solution, or,
-   on the command line
-
-       devenv sdljoystick4java.sln /build "Release|<arch>" /Project sdljoystick4java
+   `SDLJOYSTICK4JAVA_JDK_HOME` -- path to the JDK installation you want to use
    
-   where `<arch>` is either `x86` or `x64`.
-   
-   DLLs will be placed in `native\sdljoystick4java\out\(Win32|x64)\Release`.
+   `SDLJOYSTICK4JAVA_SDL_DIR` -- path to SDL directory (that has `include`, `lib/x86`, and `lib/x64`
+   subdirectories)
 
+If you want to use precompiled headers, pass `-D SDLJOYSTICK4JAVA_USE_PCH=TRUE` to `cmake`.
 
-## Windows (Method 2)
+## Examples
 
-1. In the `antbuild` directory, copy `sample-setvars.bat` to `setvars.bat` and edit appropriately.
+```
+cmake -D "SDLJOYSTICK4JAVA_JDK_HOME:PATH=c:\Program Files (x86)\Java\jdk1.7.0_261" ^
+      -D "SDLJOYSTICK4JAVA_SDL_DIR:PATH=c:\Users\JP\Code\Tools\SDL2-2.0.12" ^
+      -D CMAKE_BUILD_TYPE=Release ^
+      -G "NMake Makefiles" ^
+      -S . -B build32
 
-2. Run the Visual Studio command prompt for the architecture you want to build
-   (`vcvars32.bat` or `vcvars64.bat`).
+cmake --build build32 --target sdljoystick4java
+```
 
-3. Run `build-x86.bat` or `build-x64.bat` to build the DLLs in `out\x86|x64`.
+```
+cmake -D "SDLJOYSTICK4JAVA_JDK_HOME:PATH=c:\Program Files\Java\jdk1.7.0_80" ^
+      -D SDLJOYSTICK4JAVA_SDL_DIR:PATH=c:\Users\JP\Code\Tools\SDL2-2.0.12  ^
+      -D SDLJOYSTICK4JAVA_USE_PCH=TRUE ^
+      -D CMAKE_BUILD_TYPE=Release ^
+      -G "Ninja" ^
+      -S . -B build64
+
+cmake --build build64  
+```
+
+<!-- :maxLineLen=100: -->  
