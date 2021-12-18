@@ -6,6 +6,7 @@ project(sdljoystick4java
 
 set(SDLJOYSTICK4JAVA_JDK_HOME "" CACHE PATH "Path to JDK home directory")
 set(SDLJOYSTICK4JAVA_SDL_DIR "" CACHE PATH "Path to SDL directory")
+option(SDLJOYSTICK4JAVA_USE_PCH "Use precompiled headers" FALSE)
 
 if(NOT SDLJOYSTICK4JAVA_JDK_HOME)
     if(DEFINED ENV{JDK_HOME})
@@ -59,3 +60,8 @@ if (WIN32)
 else()
     message(FATAL_ERROR "Support for non-win32 platforms not yet implemented")
 endif()
+
+if (SDLJOYSTICK4JAVA_USE_PCH)
+    target_precompile_headers(sdljoystick4java PRIVATE src/sdljoystick4java.h)
+endif()
+
