@@ -1,44 +1,54 @@
 # Building sdljoystick4java JNI Natives
 
-You can build the JNI native shared libraries using my janky first-ever CMake build file, with these
-caveats:
+You can build the JNI native shared library using CMake.
 
-1. The `CMakeLists.txt` only supports single-configuration generators (Makefiles or Ninja). Remember
-   to add the `CMAKE_BUILD_TYPE` definition on the command-line.
+## Finding Libraries
 
-2. There's currently no support for non-Windows platform (just because `CMakeLists.txt` doesn't yet
-   include the proper include directories and link libraries -- it should be easy to add though).
+If CMake doesn't pick up the correct JNI and SDL directories, you can set some cache variables
+at the command-line to direct the operation of [`find_package(JNI)`] and [`find_package(SDL)`].
 
-3. You'll need to pass two cache variables in the configuration step:
+`JAVA_AWT_LIBRARY`\
+  the path to the Java AWT Native Interface (JAWT) library
 
-   `SDLJOYSTICK4JAVA_JDK_HOME` -- path to the JDK installation you want to use
-   
-   `SDLJOYSTICK4JAVA_SDL_DIR` -- path to SDL directory (that has `include`, `lib/x86`, and `lib/x64`
-   subdirectories)
+`JAVA_JVM_LIBRARY`\
+  the path to the Java Virtual Machine (JVM) library
 
-If you want to use precompiled headers, pass `-D SDLJOYSTICK4JAVA_USE_PCH=TRUE` to `cmake`.
+`JAVA_INCLUDE_PATH`\
+  the include path to jni.h
+
+`JAVA_INCLUDE_PATH2`\
+  the include path to jni_md.h and jniport.h
+
+`JAVA_AWT_INCLUDE_PATH`\
+  the include path to jawt.h
+
+`SDL_INCLUDE_DIR`\
+  where to find SDL.h
+
+`SDL_LIBRARY`\
+  the name of the library to link against
+
+Setting multiple path cache variables on the command-line quickly becomes tedious, so you can
+create an initial-cache file (see the examples in the `sample-initial-cache` folder), and pass
+it to `cmake` using the `-C <initial-cache>` option.
+
+## Precompiled Headers
+
+To use precompiled headers, pass `-D SDLJOYSTICK4JAVA_USE_PCH=TRUE` to `cmake`.
 
 ## Examples
 
 ```
-cmake -D "SDLJOYSTICK4JAVA_JDK_HOME:PATH=c:\Program Files (x86)\Java\jdk1.7.0_261" ^
-      -D "SDLJOYSTICK4JAVA_SDL_DIR:PATH=c:\Users\JP\Code\Tools\SDL2-2.0.12" ^
-      -D CMAKE_BUILD_TYPE=Release ^
-      -G "NMake Makefiles" ^
-      -S . -B build32
-
+cmake -G "NMake Makefiles" -C initial-cache-win32-x86.cmake -S . -B build32
 cmake --build build32 --target sdljoystick4java
 ```
 
 ```
-cmake -D "SDLJOYSTICK4JAVA_JDK_HOME:PATH=c:\Program Files\Java\jdk1.7.0_80" ^
-      -D SDLJOYSTICK4JAVA_SDL_DIR:PATH=c:\Users\JP\Code\Tools\SDL2-2.0.12  ^
-      -D SDLJOYSTICK4JAVA_USE_PCH=TRUE ^
-      -D CMAKE_BUILD_TYPE=Release ^
-      -G "Ninja" ^
-      -S . -B build64
-
+cmake -G "Ninja" -C initial-cache-win32-x64.cmake -D SDLJOYSTICK4JAVA_USE_PCH=TRUE -S . -B build64
 cmake --build build64  
 ```
+
+[`find_package(JNI)`]: https://cmake.org/cmake/help/v3.21/module/FindJNI.html
+[`find_package(SDL)`]: https://cmake.org/cmake/help/v3.21/module/FindSDL.html
 
 <!-- :maxLineLen=100: -->  
